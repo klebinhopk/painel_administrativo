@@ -174,7 +174,7 @@ class MY_Model extends CI_Model {
         $row = $this->db
                 ->get_where($this->sTable, array($sCampo => $nId))
                 ->row_array(0);
-        $this->saveLog("Excluir", $row);
+        $this->log_model->saveLog("Excluir", $row);
         return $this->db->delete($this->sTable, array($sCampo => $nId));
     }
 
@@ -195,7 +195,7 @@ class MY_Model extends CI_Model {
         $row = $this->db
                 ->get_where($this->sTable, array($sCampo => $nId))
                 ->row_array(0);
-        $this->saveLog("Excluir", $row);
+        $this->log_model->saveLog("Excluir", $row);
 
         return $this->db
                         ->where($sCampo, $nId)
