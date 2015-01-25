@@ -1,6 +1,6 @@
-<script src="<?php echo base_url(); ?>resources/javascripts/plugins/validation/jquery.validate.min.js"></script>
-<script src="<?php echo base_url(); ?>resources/javascripts/plugins/validation/additional-methods.min.js"></script>
-<script src="<?php echo base_url(); ?>resources/javascripts/plugins/validation/messages_pt_BR.js"></script>
+<script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/validate/jquery.validate.min.js"></script>
+<script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/validate/additional-methods.min.js"></script>
+<script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/validate/messages_pt_BR.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {

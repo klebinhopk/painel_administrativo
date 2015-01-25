@@ -63,7 +63,7 @@ class usuario_model extends MY_Model {
 
         $this->load->library('encrypt');
         if (!empty($vDados['senha']))
-            $vReg['senha'] = $this->encrypt->encode($vReg['senha']);
+            $vReg['senha'] = $this->encrypt->encode($vDados['senha']);
         
         return parent::save($vReg);
     }
