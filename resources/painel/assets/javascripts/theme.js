@@ -509,7 +509,7 @@ var notify = false;
 
     this.setSelect2 = function (selector) {
         if (jQuery().select2) {
-            $("select").not("[multiple]").not(".no-select2").select2();
+            $("select").not(".no-select2").select2();
         }
     };
 

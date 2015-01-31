@@ -77,6 +77,7 @@ INSERT INTO `sys_mensagem` (`id`, `nome`, `tipo`) VALUES
 (00012, 'Login informado não existe', 'danger'),
 (00013, 'Sua senha foi enviado por e-mail', 'success'),
 (00014, 'Login não encontrado', 'danger'),
+(00015, 'MENSAGEM', 'warning'),
 (00027, 'Por favor informe seu login de acesso!', 'warning'),
 (00028, 'Enviamos um e-mail para o e-mail cadastrado!', 'success'),
 (00029, 'Login não encontrado ou não existe!', 'danger'),
