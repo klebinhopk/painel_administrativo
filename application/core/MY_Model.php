@@ -12,6 +12,7 @@ class MY_Model extends CI_Model {
 
     protected $sTable = NULL;
     protected $bDeletado = FALSE;
+    protected $nInsertId = NULL;
 
     /**
      * Constructor
@@ -258,6 +259,7 @@ class MY_Model extends CI_Model {
         //INSERT
         else {
             if ($this->insert($vDados)) {
+                $this->nInsertId = $this->db->insert_id();
                 $this->sys_mensagem_model->setFlashData(9);
                 return TRUE;
             } else {
@@ -266,6 +268,13 @@ class MY_Model extends CI_Model {
         }
 
         return FALSE;
+    }
+    
+    /**
+     * <p>Recupera o ID quando inserido no banco pelo save.</p>
+     */
+    public function getInsertId() {
+        return $this->nInsertId;
     }
 }
 
