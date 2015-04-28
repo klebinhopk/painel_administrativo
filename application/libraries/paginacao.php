@@ -26,8 +26,8 @@ class paginacao {
     }
 
     function painel() {
-        $this->vConfig['full_tag_open'] = '<div class="dataTables_paginate paging_bootstrap pagination"><ul>';
-        $this->vConfig['full_tag_close'] = '<ul/><div/>';
+        $this->vConfig['full_tag_open'] = '<div class="pull-right"><ul class="pagination">';
+        $this->vConfig['full_tag_close'] = '</ul></div>';
         $this->vConfig['first_tag_open'] = '<li>';
         $this->vConfig['first_tag_close'] = '</li>';
         $this->vConfig['last_tag_open'] = '<li>';
