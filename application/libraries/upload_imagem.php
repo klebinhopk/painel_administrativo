@@ -6,8 +6,6 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-
-
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -26,6 +24,9 @@ class upload_imagem {
 
     function doUpload($vImage, $vvConfig, $nQualidade = 70) {
         $vsNameImage = array();
+
+        if (isset($vvConfig['root']))
+            $vvConfig = array('default' => $vvConfig);
 
         if (isset($vImage[0])) {
             foreach ($vImage[0]['name'] as $nIndice => $sNameImagem) {
@@ -56,7 +57,10 @@ class upload_imagem {
     function doUploadImagem($vImage, $vvConfig, $nQualidade = 70) {
         $sExtensao = self::VerificaExtensaoImagem($vImage['name']);
         $sName = NULL;
-        
+
+        if (isset($vvConfig['root']))
+            $vvConfig = array('default' => $vvConfig);
+
         if ($sExtensao == 'png')
             $nQualidade = ($nQualidade / 10) - 1;
         foreach ($vvConfig as $vConfig) {
@@ -74,66 +78,48 @@ class upload_imagem {
     }
 
     function doUploadImagemZip($vZip, $sDirTemp, $vvConfig, $nQualidade = 60) {
+        $zip = new ZipArchive;
         $vsPathImages = array();
-        $oZip = zip_open($vZip['tmp_name']);
 
-        while ($vZip_entry = zip_read($oZip)) {
-            $sFile = basename(zip_entry_name($vZip_entry));
-            $sExtensao = strtolower(self::VerificaExtensaoImagem($sFile));
+        if ($zip->open($vZip['tmp_name']) === TRUE) {
+            for ($i = 0; $i < $zip->numFiles; $i++) {
+                $filename = $zip->getNameIndex($i);
+                $fileinfo = pathinfo($filename);
 
-            if (preg_match("/(jpeg|jpg|png|gif)$/", $sExtensao) AND $sExtensao) {
-                $sFile = iconv("UTF-8", "ISO-8859-1//IGNORE", $sFile);
+                if (isset($fileinfo['extension'])) {
+                    $Tmpname = $sDirTemp . $fileinfo['basename'];
+                    copy("zip://" . $vZip['tmp_name'] . "#" . $filename, $Tmpname);
 
-                $Tmpname = $sDirTemp . basename($sFile);
-                $oFp = fopen($Tmpname, "w+");
+                    foreach ($vvConfig as $vsConfiguracao) {
+                        if (is_dir($vsConfiguracao["root"])) {
+                            $sExtensao = end(explode('.', $fileinfo['basename']));
+                            $sFile = array_shift(explode('.', $fileinfo['basename']));
+                            $sFile = $this->removeAcentuacao($sFile);
+                            $sFile = url_title($sFile, '-', TRUE);
+                            $sFile = $this->validaNomeDaImagem($sFile, $sExtensao, $vsConfiguracao['root']);
+                            $endFoto = $vsConfiguracao["root"] . $sFile;
 
-                if ($oFp) {
-                    if (zip_entry_open($oZip, $vZip_entry, "r")) {
-                        $sBuf = zip_entry_read($vZip_entry, zip_entry_filesize($vZip_entry));
-                        zip_entry_close($vZip_entry);
-                    }
+                            if (in_array($sFile, $vsPathImages) == false)
+                                $vsPathImages[] = $sFile;
 
-                    fwrite($oFp, $sBuf);
+                            if (!in_array(strtolower($sExtensao), array('png', 'jpg', 'jpeg', 'gif'))) {
+                                copy($Tmpname, $endFoto);
+                            } else {
+                                if ($sExtensao == 'png' OR $sExtensao == 'PNG')
+                                    $nQualidade = ($nQualidade / 10) - 1;
 
-                    $Tamanho = zip_entry_filesize($vZip_entry);
-
-                    if (is_file($Tmpname)) {
-                        if ($Tamanho > 0 && strlen($sFile) > 1 AND substr($sFile, 0, 1) !== '.') {  // verifica se tem arquivo enviado
-                            foreach ($vvConfig as $vsConfiguracao) {
-                                if (is_dir($vsConfiguracao["root"])) {
-                                    $sFile = array_shift(explode('.', $sFile));
-                                    $sFile = self::removeAcentuacao($sFile);
-                                    $sFile = url_title($sFile, '-', TRUE);
-                                    $sFile = self::validaNomeDaImagem(strtolower($sFile), $sExtensao, $vsConfiguracao['root']);
-                                    $endFoto = $vsConfiguracao["root"] . $sFile;
-
-                                    if (in_array($sFile, $vsPathImages) == false)
-                                        $vsPathImages[] = $sFile;
-
-                                    if ($nQualidade === -1) {
-                                        if (is_uploaded_file($Tmpname))
-                                            move_uploaded_file($Tmpname, $endFoto);
-                                        else
-                                            copy($Tmpname, $endFoto);
-                                    } else {
-                                        if ($sExtensao == 'png' OR $sExtensao == 'PNG')
-                                            $nQualidade = ($nQualidade / 10) - 1;
-
-                                        WideImage::load($Tmpname)
-                                                ->resizeDown($vsConfiguracao["bound"][0], $vsConfiguracao["bound"][1])
-                                                ->saveToFile($endFoto, $nQualidade);
-                                    }
-                                }
+                                WideImage::load($Tmpname)
+                                        ->resizeDown($vsConfiguracao["bound"][0], $vsConfiguracao["bound"][1])
+                                        ->saveToFile($endFoto, $nQualidade);
                             }
                         }
                     }
-
-                    fclose($oFp);
-                    @unlink($Tmpname);
+                    unlink($Tmpname);
                 }
             }
-        }
 
+            $zip->close();
+        }
         return $vsPathImages;
     }
 
@@ -151,8 +137,7 @@ class upload_imagem {
             if (@file_exists($sRoot . $aux)) {
                 $cont++;
                 $aux = "{$Nome}-{$cont}.{$sExtensao}";
-            }
-            else
+            } else
                 $existe = false;
         }while ($existe);
         return $aux;
