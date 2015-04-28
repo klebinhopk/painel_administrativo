@@ -279,24 +279,36 @@ class Util {
         return preg_replace('/[.\/-]/', '', $sValor);
     }
 
-    static function tempoDecorrido($AnoMesDiaInicio, $AnoMesDiaFim = NULL) {
+    static function tempoDecorrido($AnoMesDiaInicio, $AnoMesDiaFim = NULL, $nLoop = 1) {
+        if (empty($AnoMesDiaInicio))
+            $AnoMesDiaInicio = date("Y-m-d H:i:s");
         if (empty($AnoMesDiaFim))
             $AnoMesDiaFim = date("Y-m-d H:i:s");
 
         $time = abs(strtotime($AnoMesDiaFim) - strtotime($AnoMesDiaInicio)); // to get the time since that moment
+        $tokens = array(31536000 => 'ano', 31536000 / 12 => 'mês', 31536000 / 52 => 'semana', (31536000 / 365.2425) => 'dia', 3600 => 'hora', 60 => 'minuto', 1 => 'segundo');
+        $sReturn = "";
 
-        $tokens = array(31536000 => 'ano', 2592000 => 'mês', 604800 => 'semana', 86400 => 'dia', 3600 => 'hora', 60 => 'minuto', 1 => 'segundo', 0 => 'agora');
-
+        $nIndice = 0;
         foreach ($tokens as $unit => $text) {
             if ($time < $unit)
                 continue;
-            if (0 == $unit)
-                return 'pouco tempo'; //há ?
 
-            $numberOfUnits = floor($time / $unit);
-            $text = ($text == 'mês' && $numberOfUnits > 1) ? 'mese' : $text;
-            return $numberOfUnits . ' ' . $text . (($numberOfUnits > 1) ? 's' : '');
+            if ($nIndice < $nLoop AND $time > 0) {
+                $numberOfUnits = floor($time / $unit);
+
+                if ($numberOfUnits > 0) {
+                    $text = ($text == 'mês' && $numberOfUnits > 1) ? 'mese' : $text;
+                    $sReturn .= $numberOfUnits . ' ' . $text . (($numberOfUnits > 1) ? 's' : '') . " ";
+                    $time = $time - ($unit * $numberOfUnits);
+                }
+            }
+
+            $nIndice++;
         }
+
+        $sReturn = trim($sReturn);
+        return empty($sReturn) ? "pouco tempo" : $sReturn;
     }
 
     static function removeHtml($sText) {
