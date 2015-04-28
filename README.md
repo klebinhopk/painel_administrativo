@@ -1,7 +1,9 @@
 Painel Administrativo com Codeigniter
 =====================
 
-Estrutura básica para início de projeto com 2 módulos básicos: Painel e Site. Painel para área Administrativa com template: http://www.bublinastudio.com/flattybs3/
+[Realizar Doação|Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SZE2Z2GZZG2JC)
+
+Estrutura básica para início de projeto com 2 módulos básicos: Painel e Site. Painel para área Administrativa com template: [http://www.bublinastudio.com/flattybs3/](http://www.bublinastudio.com/flattybs3/)
 
 **Funcionalidades**
 
