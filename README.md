@@ -3,7 +3,7 @@ Painel Administrativo com Codeigniter
 
 [Realizar Doação|Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SZE2Z2GZZG2JC)
 
-Estrutura básica para início de projeto com 2 módulos básicos: Painel e Site. Painel para área Administrativa com template: [http://www.bublinastudio.com/flattybs3/](http://www.bublinastudio.com/flattybs3/)
+Estrutura básica para início de projeto com 2 módulos básicos: Painel e Site.
 
 **Funcionalidades**
 
@@ -19,7 +19,6 @@ Estrutura básica para início de projeto com 2 módulos básicos: Painel e Site
 3. Deletar arquivo database.sql;
 4. Configurar conexão com banco MySql em application/config/database.php;
 5. Configurar nome do Cliente ou Projeto, na constante NOME_CLIENTE em application/config/constants.php: `define('NOME_CLIENTE', 'EMPRESA');`
-6. alterar o campo **encryption_key** localizado em application/config/config.php: `$config['encryption_key'] = 'CHAVE_DE_CRIPTOGRAFIA';`
 
 Obs1: usu_usuario e usu_grupo_usuario possuem o campo **deletado** para exclusão lógica de registros.
 
