@@ -71,7 +71,7 @@ class log_model extends MY_Model {
      * @param	string Titulo do LOG
      * @param	array Dados para registro do LOG
      */
-    function saveLog($vDados = array()) {
+    function saveLog($vDados = array(), $sCampoReferencia = 'id') {
         $vPainel = $this->session->userdata('painel');
 
         if (!empty($vDados)) {

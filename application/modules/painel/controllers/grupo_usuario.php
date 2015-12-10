@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class grupo_usuario extends MY_Controller implements Crud_Painel {
+class grupo_usuario extends MY_Controller {
 
     function __construct() {
         parent::__construct();
@@ -31,6 +31,7 @@ class grupo_usuario extends MY_Controller implements Crud_Painel {
             $this->grupo_usuario_model->save($this->_vPost);
             redirect('painel/grupo_usuario', 'refresh');
         } else {
+            $this->headerjscss->addJs('validate');
             $data['action'] = "adicionar";
             $data['migalha'] = array('painel/grupo_usuario' => 'Grupo de Usuário');
             $data['conteudo'] = "grupo_usuario/save";
@@ -52,6 +53,7 @@ class grupo_usuario extends MY_Controller implements Crud_Painel {
                 $this->grupo_usuario_model->save($this->_vPost);
                 redirect('painel/grupo_usuario', 'refresh');
             } else {
+                $this->headerjscss->addJs('validate');
                 $data['action'] = "alterar/" . $data['oGrupoUsuario']->id;
                 $data['migalha'] = array('painel/grupo_usuario' => 'Grupo de Usuário');
                 $data['conteudo'] = "grupo_usuario/save";
@@ -80,9 +82,9 @@ class grupo_usuario extends MY_Controller implements Crud_Painel {
         if (empty($this->_vPost))
             return FALSE;
 
-        $this->my_form_validation->set_rules('nome', 'Nome', 'required|max_length[45]');
-        $this->my_form_validation->set_rules('deletado', 'Deletado', '');
-        return $this->my_form_validation->run();
+        $this->pt_form_validation->set_rules('nome', 'Nome', 'required|max_length[45]');
+        $this->pt_form_validation->set_rules('deletado', 'Deletado', '');
+        return $this->pt_form_validation->run();
     }
 
 }

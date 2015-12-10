@@ -1,13 +1,3 @@
-<script>
-    $(function () {
-        $(".ver-dados").click(function () {
-            var text = $(this).parent().find('.descricao').html();
-            $("#myModalDados .modal-body").html(text);
-            $("#myModalDados").modal('show');
-        });
-    });
-</script>
-
 <a class="btn btn-info" data-toggle="modal" data-target="#modalFiltro" href="javascript:;"><i class="fa fa-search"></i> Filtrar</a>
 
 <div class="modal fade" id="modalFiltro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -5,25 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?php echo $title; ?></title>
 
-        <link href="<?php echo base_url(); ?>resources/painel/assets/stylesheets/bootstrap/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
-        <link href="<?php echo base_url(); ?>resources/painel/assets/stylesheets/light-theme.css" media="all" id="color-settings-body-color" rel="stylesheet" type="text/css" />
-        <link href="<?php echo base_url(); ?>resources/painel/assets/stylesheets/theme-colors.css" media="all" rel="stylesheet" type="text/css" />
-        <!--[if lt IE 9]>
-          <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/ie/html5shiv.js" type="text/javascript"></script>
-          <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/ie/respond.min.js" type="text/javascript"></script>
-        <![endif]-->
+        <?php echo headerjscss::putCss(); ?>
 
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-        <!--[if lt IE 9]>
-          <script src="js/html5shiv.js"></script>
-          <script src="js/respond.min.js"></script>
-        <![endif]-->
-
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/jquery/jquery.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/bootstrap/bootstrap.min.js" type="text/javascript"></script>
-        <link href="<?php echo base_url(); ?>resources/painel/assets/stylesheets/plugins/jquery-ui/jquery-ui.min.css" media="all" rel="stylesheet" type="text/css" />
-
-        <script>
+        <script type="text/javascript">
             var base_url = "<?php echo base_url(); ?>";
             var nome_cliente = "<?php echo NOME_CLIENTE ?>";
             var title = "<?php echo $title ?>";
@@ -31,14 +15,6 @@
             var modulo = "<?php echo $this->router->fetch_module() ?>";
             var classe = "<?php echo $this->router->class ?>";
             var method = "<?php echo $this->router->method ?>";
-
-            $(function() {
-                $('#menu-navegacao ul.nav-stacked').each(function(indice, obj) {
-                    if ($('li', obj).length == 0) {
-                        $(obj).parent().remove();
-                    }
-                });
-            });
         </script>
     </head>
 
@@ -224,29 +200,16 @@
             </section>
         </div>
 
-
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/jquery/jquery.mobile.custom.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/jquery/jquery-migrate.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/jquery/jquery-ui.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/jquery_ui_touch_punch/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/modernizr/modernizr.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/retina/retina.js" type="text/javascript"></script>
-
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/jquery-ui/jquery.ui.datepicker-pt-BR.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/maskedinput/jquery.maskedinput.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/maskmoney/jquery.maskMoney.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/tiny_mce/jquery.tinymce.js" type="text/javascript"></script>
-
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/validate/jquery.validate.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/validate/additional-methods.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/validate/messages_pt_BR.js" type="text/javascript"></script>
-
-        <link href="<?php echo base_url(); ?>resources/painel/assets/stylesheets/plugins/select2/select2.css" media="all" rel="stylesheet" type="text/css" />
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/plugins/select2/select2.js" type="text/javascript"></script>
-
-        <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/theme.js" type="text/javascript"></script>
+        <?php echo headerjscss::putJs(); ?>
+        <script>
+            $(function () {
+                $('#menu-navegacao ul.nav-stacked').each(function (indice, obj) {
+                    if ($('li', obj).length == 0) {
+                        $(obj).parent().remove();
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
 <!-- Localized -->

@@ -52,7 +52,7 @@ class usuario_model extends MY_Model {
         return array('result' => $result, 'links' => $sLinks, 'total' => $nTotal);
     }
 
-    public function save($vDados) {
+    public function save($vDados, $sCampoReferencia = 'id') {
         $vReg = array(
             'id' => $this->uri->segment(4),
             'id_grupo_usuario' => $vDados["id_grupo_usuario"],
@@ -65,8 +65,10 @@ class usuario_model extends MY_Model {
         $this->load->library('encrypt');
         if (!empty($vDados['senha']))
             $vReg['senha'] = $this->encrypt->encode($vDados['senha']);
-        
-        return parent::save($vReg);
+
+        $bSave = parent::save($vReg);
+        painel_helper::setMensagemSave($bSave);
+        return $bSave;
     }
 
     public function save_meus_dados($vDados, $nIdUsuario) {
@@ -79,11 +81,9 @@ class usuario_model extends MY_Model {
         if (!empty($vDados['senha']))
             $vReg['senha'] = $this->encrypt->encode($vDados['senha']);
 
-        if ($this->usuario_model->update($vReg, $nIdUsuario)) {
-            $this->sys_mensagem_model->setFlashData(9);
-        } else {
-            $this->sys_mensagem_model->setFlashData(2);
-        }
+        $bSave = $this->usuario_model->update($vReg, $nIdUsuario);
+        painel_helper::setMensagemSave($bSave);
+        return $bSave;
     }
 
 }

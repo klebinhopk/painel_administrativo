@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class usuario extends MY_Controller implements Crud_Painel {
+class usuario extends MY_Controller {
 
     function __construct() {
         parent::__construct();
@@ -32,6 +32,8 @@ class usuario extends MY_Controller implements Crud_Painel {
             $this->usuario_model->save($this->_vPost);
             redirect('painel/usuario', 'refresh');
         } else {
+            $this->headerjscss->addHeaders('select2');
+            $this->headerjscss->addJs('validate');
             $data['vsGrupoUsuario'] = array('' => 'Selecione') + $this->grupo_usuario_model->getAllSelect();
             $data['action'] = "adicionar";
             $data['migalha'] = array('painel/usuario' => 'Usuário');
@@ -54,6 +56,8 @@ class usuario extends MY_Controller implements Crud_Painel {
                 $this->usuario_model->save($this->_vPost);
                 redirect('painel/usuario', 'refresh');
             } else {
+                $this->headerjscss->addHeaders('select2');
+                $this->headerjscss->addJs('validate');
                 $data['vsGrupoUsuario'] = array('' => 'Selecione') + $this->grupo_usuario_model->getAllSelect();
                 $data['action'] = "alterar/" . $data['oUsuario']->id;
                 $data['migalha'] = array('painel/usuario' => 'Usuário');
@@ -85,7 +89,8 @@ class usuario extends MY_Controller implements Crud_Painel {
             redirect('/painel/usuario/meus_dados', 'refresh');
             return;
         }
-
+        
+        $this->headerjscss->addJs('validate');
         $_vPainel = $this->session->userdata('painel');
         $data['usuario'] = $this->usuario_model->get($_vPainel['id']);
         $data['conteudo'] = "usuario/meus_dados";
@@ -94,27 +99,27 @@ class usuario extends MY_Controller implements Crud_Painel {
     }
 
     private function validation() {
-        if (empty($this->_vPost))
-            return FALSE;
-
-        $this->my_form_validation->set_rules('id_grupo_usuario', 'Grupo usuário', 'required|max_length[10]');
-        $this->my_form_validation->set_rules('nome', 'Nome', 'required|max_length[200]');
-        $this->my_form_validation->set_rules('login', 'Login', 'required|max_length[100]');
-        $this->my_form_validation->set_rules('senha', 'Senha', 'max_length[200]');
-        $this->my_form_validation->set_rules('email', 'Email', 'required|max_length[100]|valid_email');
-        $this->my_form_validation->set_rules('ativo', 'Ativo', '');
-        $this->my_form_validation->set_rules('deletado', 'Deletado', '');
-        return $this->my_form_validation->run();
+//        if (empty($this->_vPost))
+//            return FALSE;
+        
+        $this->pt_form_validation->set_rules('id_grupo_usuario', 'Grupo usuário', 'required|max_length[10]');
+        $this->pt_form_validation->set_rules('nome', 'Nome', 'required|max_length[200]');
+        $this->pt_form_validation->set_rules('login', 'Login', 'required|max_length[100]');
+        $this->pt_form_validation->set_rules('senha', 'Senha', 'max_length[200]');
+        $this->pt_form_validation->set_rules('email', 'Email', 'required|max_length[100]|valid_email');
+        $this->pt_form_validation->set_rules('ativo', 'Ativo', '');
+        $this->pt_form_validation->set_rules('deletado', 'Deletado', '');
+        return $this->pt_form_validation->run();
     }
     
     private function validation_meus_dados() {
         if (empty($this->_vPost))
             return FALSE;
 
-        $this->my_form_validation->set_rules('nome', 'Nome', 'required|max_length[200]');
-        $this->my_form_validation->set_rules('login', 'Login', 'required|max_length[100]');
-        $this->my_form_validation->set_rules('email', 'Email', 'required|max_length[100]|valid_email');
-        return $this->my_form_validation->run();
+        $this->pt_form_validation->set_rules('nome', 'Nome', 'required|max_length[200]');
+        $this->pt_form_validation->set_rules('login', 'Login', 'required|max_length[100]');
+        $this->pt_form_validation->set_rules('email', 'Email', 'required|max_length[100]|valid_email');
+        return $this->pt_form_validation->run();
     }
 
 }

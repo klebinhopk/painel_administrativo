@@ -8,8 +8,6 @@
  */
 (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-require_once APPPATH . 'interfaces/Crud_Painel.php';
-
 class MY_Controller extends CI_Controller {
 
     protected $_vPost, $_vGet, $_vPainel;
@@ -33,6 +31,10 @@ class MY_Controller extends CI_Controller {
         $vars['_vPainel'] = $this->_vPainel;
         $vars['bPainelNav'] = $this->session->userdata('painel_nav');
         $vars['vPainelPermissao'] = $this->metodo_model->getPermissao($this->_vPainel['id_grupo_usuario']);
+
+        $this->headerjscss->addCss('default_painel');
+        $this->headerjscss->addJs('theme_painel');
+
         $this->load->view($view, $vars, $return);
     }
 

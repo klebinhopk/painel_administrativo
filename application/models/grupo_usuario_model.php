@@ -35,7 +35,7 @@ class grupo_usuario_model extends MY_Model {
         return array('result' => $result, 'links' => $sLinks, 'total' => $nTotal);
     }
 
-    public function save($vDados) {
+    public function save($vDados, $sCampoReferencia = 'id') {
         $vReg = array(
             'id' => $this->uri->segment(4),
             'nome' => $vDados["nome"],

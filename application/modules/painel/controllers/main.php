@@ -6,8 +6,6 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-
-
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -30,7 +28,10 @@ class main extends MY_Controller {
     }
 
     function login() {
-        $this->load->view('main/login');
+        if (!$this->dologin()) {
+            $this->headerjscss->addCss('default_painel');
+            $this->load->view('main/login');
+        }
     }
 
     function page_not_found() {
@@ -41,12 +42,17 @@ class main extends MY_Controller {
         $this->load->view('main/sempermissao');
     }
 
-    function dologin() {
+    private function dologin() {
+        if (empty($this->_vPost)) {
+            return FALSE;
+        }
+        
         $this->load->library('encrypt');
         $this->form_validation->set_rules('user', 'login', 'required');
         $this->form_validation->set_rules('pass', 'Senha', 'required|callback_check_login_senha[' . $this->_vPost['user'] . ']');
-
-        if ($this->form_validation->run()) {
+        
+        $bValid = $this->form_validation->run();
+        if ($bValid) {
             $usuario = $this->input->post('user', true);
             $senha = $this->input->post('pass', true);
             $oUsuario = $this->usuario_model->getLogin($usuario, $senha);
@@ -64,12 +70,13 @@ class main extends MY_Controller {
             $this->session->set_userdata('painel_nav', 1);
             $this->sys_mensagem_model->setFlashData(3);
             $this->log_model->saveLog(array('id' => $oUsuario->id, 'nome' => $oUsuario->nome, 'emil' => $oUsuario->email, 'id_grupo_usuario' => $oUsuario->id_grupo_usuario));
-            redirect('/painel', 'refresh');
-        } else {
-            $this->login();
+            redirect('painel');
+            exit;
         }
+        
+        return $bValid;
     }
-    
+
     function painel_nav() {
         $nId = (INT) $this->uri->segment(4);
         $this->session->set_userdata('painel_nav', $nId);
@@ -112,7 +119,7 @@ class main extends MY_Controller {
 
     function check_login_senha($sSenhaInput, $sLogin) {
         $sSenha = $this->usuario_model->getCampo(array('login' => $sLogin, 'ativo' => 1), 'senha');
-        
+
         if (!empty($sSenha)) {
             $sSenha = $this->encrypt->decode($sSenha);
 
@@ -127,4 +134,5 @@ class main extends MY_Controller {
 
         return TRUE;
     }
+
 }

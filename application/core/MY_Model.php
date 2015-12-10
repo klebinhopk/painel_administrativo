@@ -46,6 +46,7 @@ class MY_Model extends CI_Model {
             $this->db->order_by($sOrderBy);
 
         return $this->db
+                        ->select("{$this->sTable}.*")
                         ->where($vDados)
                         ->get($this->sTable);
     }
@@ -63,6 +64,7 @@ class MY_Model extends CI_Model {
             $vDados['deletado'] = 0;
 
         return $this->db
+                        ->select("{$this->sTable}.*")
                         ->limit(1)
                         ->get_where($this->sTable, $vDados)
                         ->row(0);
@@ -138,7 +140,13 @@ class MY_Model extends CI_Model {
      */
     public function insert($vDados) {
         try {
-            return $this->db->insert($this->sTable, $vDados);
+            $bSave = $this->db->insert($this->sTable, $vDados);
+            if ($bSave)
+                $this->nInsertId = $this->db->insert_id();
+            else
+                $this->nInsertId = NULL;
+
+            return $bSave;
         } catch (Exception $exc) {
             return false;
         }
@@ -240,7 +248,7 @@ class MY_Model extends CI_Model {
 
         return (INT) $nValor;
     }
-    
+
     /**
      * <p>Salva registro no banco com update ou insert.</p>
      * @param	array Dados
@@ -249,33 +257,23 @@ class MY_Model extends CI_Model {
     function save($vDados, $sCampoReferencia = 'id') {
         //UPDATE
         if (isset($vDados[$sCampoReferencia]) AND ! empty($vDados[$sCampoReferencia])) {
-            if ($this->update($vDados, $vDados[$sCampoReferencia])) {
-                $this->sys_mensagem_model->setFlashData(9);
-                return TRUE;
-            } else {
-                $this->sys_mensagem_model->setFlashData(2);
-            }
+            return $this->update($vDados, $vDados[$sCampoReferencia]);
         }
         //INSERT
         else {
-            if ($this->insert($vDados)) {
-                $this->nInsertId = $this->db->insert_id();
-                $this->sys_mensagem_model->setFlashData(9);
-                return TRUE;
-            } else {
-                $this->sys_mensagem_model->setFlashData(2);
-            }
+            return $this->insert($vDados);
         }
 
         return FALSE;
     }
-    
+
     /**
      * <p>Recupera o ID quando inserido no banco pelo save.</p>
      */
     public function getInsertId() {
         return $this->nInsertId;
     }
+
 }
 
 ?>
