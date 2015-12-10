@@ -41,7 +41,7 @@ class headerjscss {
                 $configuration = $this->_getConfiguration($sType, $item);
                 if (!empty($configuration)) {
                     $header = array_merge($header, $configuration);
-                } elseif (is_file (FCPATH . $item)) {
+                } elseif (is_file(FCPATH . $item)) {
                     $header[] = $item;
                 }
             }
@@ -61,7 +61,7 @@ class headerjscss {
                         $vLinks[] = $sLink;
                     }
                 }
-                
+
                 return $vLinks;
             } elseif (is_file(FCPATH . $headerConfiguration[$sItem])) {
                 return array($headerConfiguration[$sItem]);
@@ -82,7 +82,7 @@ class headerjscss {
         $sDirRoot = FCPATH . "resources/modules/{$sModule}/{$sType}";
 
         if (is_file("{$sDirRoot}/{$sFile}.min.{$sType}") AND $bCretaMin)
-            $file = "{$sDirLink}/{$sFile}.min.{$sType}";
+            $file = "{$sDirLink}/minify/{$sFile}.min.{$sType}";
 
         if (is_file("{$sDirRoot}/{$sFile}.{$sType}")) {
             $this->ci->load->driver("Minify");
@@ -93,11 +93,11 @@ class headerjscss {
                 $sText = $this->ci->minify->css->min("{$sDirRoot}/{$sFile}.{$sType}");
             }
 
-            if ($bCretaMin) {
-                if (!is_file("{$sDirRoot}/{$sFile}.min.{$sType}"))
-                    file_put_contents("{$sDirRoot}/{$sFile}.min.{$sType}", $sText);
+            if ($bCretaMin AND is_dir("{$sDirRoot}/minify")) {
+                if (!is_file("{$sDirRoot}/minify/{$sFile}.min.{$sType}"))
+                    file_put_contents("{$sDirRoot}/minify/{$sFile}.min.{$sType}", $sText);
 
-                $file = "{$sDirLink}/{$sFile}.min.{$sType}";
+                $file = "{$sDirLink}/minify/{$sFile}.min.{$sType}";
             } else {
                 $file = "{$sDirLink}/{$sFile}.{$sType}";
             }
