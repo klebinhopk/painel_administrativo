@@ -15,6 +15,7 @@ $config['configuration_css'] = array(
     'select2' => 'resources/painel/stylesheets/plugins/select2/select2.css'
 );
 
+$config['min_css'] = array();
 $config['header_css'] = array(
     'resources/painel/stylesheets/bootstrap/bootstrap.min.css'
 );

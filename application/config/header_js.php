@@ -6,6 +6,7 @@
  * @link http://twitter.com/romabeckman
  */
 
+
 $config['configuration_js'] = array(
     'jqueryui' => array(
         'resources/painel/javascripts/plugins/jquery-ui/jquery.ui.datepicker-pt-BR.min.js',
@@ -23,6 +24,7 @@ $config['configuration_js'] = array(
     'theme_painel' => 'resources/painel/javascripts/theme.js'
 );
 
+$config['min_js'] = array();
 $config['header_js'] = array(
     'resources/painel/javascripts/jquery/jquery.min.js',
     'resources/painel/javascripts/bootstrap/bootstrap.min.js',
