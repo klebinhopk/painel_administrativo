@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class permissoes extends MY_Controller {
+class Permissoes extends MY_Controller {
 
     function __construct() {
         parent::__construct();

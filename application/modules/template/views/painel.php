@@ -16,9 +16,10 @@
             var classe = "<?php echo $this->router->class ?>";
             var method = "<?php echo $this->router->method ?>";
         </script>
+        <?php echo headerjscss::putJs(); ?>
     </head>
 
-    <body class="contrast-fb <?php echo $bPainelNav ? "" : "main-nav-closed" ?>">
+    <body class="contrast-fb">
         <div id="modal-confirm" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -199,8 +200,7 @@
                 </div>
             </section>
         </div>
-
-        <?php echo headerjscss::putJs(); ?>
+        
         <script>
             $(function () {
                 $('#menu-navegacao ul.nav-stacked').each(function (indice, obj) {

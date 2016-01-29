@@ -72,7 +72,7 @@
                 <td><?php echo $oLog->usuario ?></td>
                 <td><?php echo $oLog->acesso ?></td>
                 <td><?php echo $oLog->ip ?><?php echo!empty($oLog->usuario_ip) ? "<br />({$oLog->usuario_ip})" : "" ?></td>
-                <td><?php echo Util::converteDataParaPagina($oLog->data_cadastro) ?></td>
+                <td><?php echo UtilHelper::converteDataParaPagina($oLog->data_cadastro) ?></td>
                 <td class="opcoes">
                     <a class="btn btn-info ver-dados" href="javascript:;"><i class="fa fa-search-plus"></i><span class="hidden-sm hidden-xs"> Ver Dados</span></a>
                     <div style="display: none;" class="descricao">
@@ -81,7 +81,7 @@
                         if (isset($vDados['dados_sessao']['auth'])) {
                             $vDados['dados_sessao']['auth'] = ellipsize($vDados['dados_sessao']['auth'], 10, 0.5);
                         }
-                        Util::printR($vDados);
+                        UtilHelper::printR($vDados);
                         ?>
                     </div>
                 </td>

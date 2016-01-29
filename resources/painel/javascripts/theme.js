@@ -14,7 +14,7 @@ var notify = false;
             var vModulo = $(this).data("modulo");
             var vClass = $(this).data("class");
             var vMethod = $(this).data("method");
-            var bActive= false;
+            var bActive = false;
 
             if (!empty(vModulo)) {
                 vModulo = vModulo.split(",");
@@ -36,7 +36,7 @@ var notify = false;
                 $(this).parent().find('ul.nav').addClass('in');
             }
         });
-        
+
         var body, click_event, content, nav, nav_toggler;
         nav_toggler = $("header .toggle-nav");
         nav = $("#main-nav");
@@ -85,17 +85,22 @@ var notify = false;
             return false;
         });
         $(document).bind("nav-close", function (event, params) {
-            var nav_open;
             body.removeClass("main-nav-opened").addClass("main-nav-closed");
-            $.get(base_url + "painel/main/painel_nav/0");
-            return nav_open = false;
+            Cookies.set('painel_nav', 'closed', {expires: 365});
+            return false;
         });
-        return $(document).bind("nav-open", function (event, params) {
-            var nav_open;
+        $(document).bind("nav-open", function (event, params) {
             body.addClass("main-nav-opened").removeClass("main-nav-closed");
-            $.get(base_url + "painel/main/painel_nav/1");
-            return nav_open = true;
+            Cookies.set('painel_nav', 'opened', {expires: 365});
+            return true;
         });
+
+        var painelVar = Cookies.get('painel_nav');
+        if (!painelVar)
+            painelVar = 'closed';
+        if (painelVar == 'closed') {
+            $('body').addClass('main-nav-closed');
+        }
     });
 
     this.nav_open = function () {
@@ -107,7 +112,6 @@ var notify = false;
      * plugin initializations
      * --------------------------------------------------------------------------------------------------------------------
      */
-
 
     $(document).ready(function () {
         var touch;

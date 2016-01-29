@@ -7,8 +7,7 @@
  * @link http://twitter.com/romabeckman
  */
 
-
-class imagem_model extends MY_Model {
+class Imagem_model extends MY_Model {
 
     public $vConfig = array();
 

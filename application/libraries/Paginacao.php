@@ -8,7 +8,7 @@
  */
 
 
-class paginacao {
+class Paginacao {
 
     private $CI, $vConfig = array();
 

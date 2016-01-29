@@ -29,12 +29,10 @@ class MY_Controller extends CI_Controller {
         $vars['_vPost'] = $this->_vPost;
         $vars['_vGet'] = $this->_vGet;
         $vars['_vPainel'] = $this->_vPainel;
-        $vars['bPainelNav'] = $this->session->userdata('painel_nav');
         $vars['vPainelPermissao'] = $this->metodo_model->getPermissao($this->_vPainel['id_grupo_usuario']);
 
-        $this->headerjscss->addCss('default_painel');
-        $this->headerjscss->addJs('theme_painel');
-
+        Headerjscss::addJs(array('js.cookie'));
+        Headerjscss::addHeaders('default_painel');
         $this->load->view($view, $vars, $return);
     }
 

@@ -6,7 +6,7 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-class metodo_model extends MY_Model {
+class Metodo_model extends MY_Model {
 
     function __construct() {
         parent::__construct();

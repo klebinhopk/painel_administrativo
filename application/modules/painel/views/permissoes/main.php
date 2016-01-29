@@ -18,7 +18,7 @@
         <dt class="text-left">
         <input type="checkbox" value="<?php echo $sModulo; ?>" <?php echo $vnPermissaoModulo[$sModulo]['com'] == $vnPermissaoModulo[$sModulo]['total'] ? 'checked=""' : '' ?> data-modulo="<?php echo $sModulo ?>" class="permissao <?php echo $sModulo ?>" />
         <a href="javascript:;">
-            <?php echo strtoupper($sModulo); ?> (<?php echo Util::decimalParaPagina(($vnPermissaoModulo[$sModulo]['com'] * 100) / $vnPermissaoModulo[$sModulo]['total']) ?>% - <?php echo $vnPermissaoModulo[$sModulo]['com'] ?>/<?php echo $vnPermissaoModulo[$sModulo]['total'] ?>)
+            <?php echo strtoupper($sModulo); ?> (<?php echo UtilHelper::decimalParaPagina(($vnPermissaoModulo[$sModulo]['com'] * 100) / $vnPermissaoModulo[$sModulo]['total']) ?>% - <?php echo $vnPermissaoModulo[$sModulo]['com'] ?>/<?php echo $vnPermissaoModulo[$sModulo]['total'] ?>)
             <i class="icon-caret-down"></i>
         </a>
         </dt>
@@ -32,7 +32,7 @@
                         <strong>
                             <input type="checkbox" value="<?php echo $sModulo . "-" . $sClasse; ?>" <?php echo $vnPermissaoClasse[$sModulo][$sClasse]['com'] == $vnPermissaoClasse[$sModulo][$sClasse]['total'] ? 'checked=""' : '' ?> data-modulo="<?php echo $sModulo ?>" data-classe="<?php echo $sClasse ?>" class="permissao <?php echo $sModulo ?>" />
                             <a href="javascript:;">
-                                <?php echo $sArea; ?>(<?php echo Util::decimalParaPagina(($vnPermissaoClasse[$sModulo][$sClasse]['com'] * 100) / $vnPermissaoClasse[$sModulo][$sClasse]['total']) ?>% - <?php echo $vnPermissaoClasse[$sModulo][$sClasse]['com'] ?>/<?php echo $vnPermissaoClasse[$sModulo][$sClasse]['total'] ?>)
+                                <?php echo $sArea; ?>(<?php echo UtilHelper::decimalParaPagina(($vnPermissaoClasse[$sModulo][$sClasse]['com'] * 100) / $vnPermissaoClasse[$sModulo][$sClasse]['total']) ?>% - <?php echo $vnPermissaoClasse[$sModulo][$sClasse]['com'] ?>/<?php echo $vnPermissaoClasse[$sModulo][$sClasse]['total'] ?>)
                                 <i class="fa icon-caret-down"></i>
                             </a>
                         </strong>

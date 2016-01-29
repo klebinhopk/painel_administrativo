@@ -11,7 +11,7 @@ if (!defined('BASEPATH'))
 
 if (!class_exists('pt_form_validation')) {
 
-    class pt_form_validation extends CI_Form_validation {
+    class Pt_form_validation extends CI_Form_validation {
 
         function __construct() {
             parent::__construct();

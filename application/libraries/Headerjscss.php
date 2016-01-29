@@ -6,11 +6,10 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class headerjscss {
+class Headerjscss {
 
     private $ci, $sDir = 'resources/modules';
 
@@ -22,24 +21,39 @@ class headerjscss {
 
     #PUBLIC
 
-    public function addHeaders($file, $bMin = FALSE) {
-        $this->_add('js', $file, $bMin);
-        $this->_add('css', $file, $bMin);
+    static public function addHeaders($file) {
+        Headerjscss::addJs($file);
+        Headerjscss::addCss($file);
     }
 
-    public function addJs($file, $bMin = FALSE) {
-        $this->_add('js', $file, $bMin);
+    static public function addJs($file) {
+        $ci = &get_instance();
+        $ci->headerjscss->_add('js', $file);
     }
 
-    public function addCss($file, $bMin = FALSE) {
-        $this->_add('css', $file, $bMin);
+    static public function addCss($file) {
+        $ci = &get_instance();
+        $ci->headerjscss->_add('css', $file);
+    }
+
+    static function putHeaders($bMin = FALSE) {
+        return headerJsCss::putCss($bMin) . headerJsCss::putJs($bMin);
+    }
+
+    static function putCss($bMin = FALSE) {
+        $ci = &get_instance();
+        return $ci->headerjscss->_puts('css', $bMin);
+    }
+
+    static function putJs($bMin = FALSE) {
+        $ci = &get_instance();
+        return $ci->headerjscss->_puts('js', $bMin);
     }
 
     #PRIVATE
 
-    private function _add($sType, $file, $bMin = FALSE) {
+    private function _add($sType, $file) {
         $header = (ARRAY) $this->ci->config->item('header_' . $sType);
-        $headerMin = (ARRAY) $this->ci->config->item('min_' . $sType);
 
         if (!empty($file)) {
             if (!is_array($file))
@@ -48,14 +62,13 @@ class headerjscss {
                 $configuration = $this->_getConfiguration($sType, $item);
 
                 if (!empty($configuration)) {
-                    $bMin ? $headerMin = array_merge($headerMin, $configuration) : $header = array_merge($header, $configuration);
+                    $header = array_merge($header, $configuration);
                 } elseif (is_file(FCPATH . $item)) {
-                    $bMin ? $headerMin[] = $item : $header[] = $item;
+                    $header[] = $item;
                 }
             }
 
             $this->ci->config->set_item('header_' . $sType, $header);
-            $this->ci->config->set_item('min_' . $sType, $headerMin);
         }
     }
 
@@ -89,6 +102,7 @@ class headerjscss {
 
         if (is_file("{$sDirRoot}/{$sFile}.min.{$sType}") AND $bCretaMin)
             $file = "{$sDirLink}/{$sFile}.min.{$sType}";
+
         if (is_file("{$sDirRoot}/{$sFile}.{$sType}")) {
             $this->ci->load->driver("Minify");
             if ($sType == 'js') {
@@ -114,29 +128,27 @@ class headerjscss {
     private function _puts($sType, $bMin = FALSE) {
         $str = '';
         $this->_loadFile($sType, (ENVIRONMENT == 'production'));
+        $header = (ARRAY) $this->ci->config->item('header_' . $sType);
 
         if ($bMin) {
-            $headerMin = (ARRAY) $this->ci->config->item('min_' . $sType);
-            if (!empty($headerMin)) {
-                $sModule = $this->ci->router->fetch_module();
-                $sDirLink = base_url($this->sDir . "/{$sModule}/all.{$sType}");
-                $sDirRoot = FCPATH . "{$this->sDir}/{$sModule}";
-                if (is_dir($sDirRoot)) {
-                    if (!file_exists($sDirRoot . "/all.{$sType}") OR ( ENVIRONMENT != 'production')) {
-                        $this->ci->load->driver("Minify");
-                        $contents = $this->ci->minify->combine_files($headerMin, $sType);
-                        $this->ci->minify->save_file($contents, $sDirRoot . "/all.{$sType}");
-                    }
+            $sModule = $this->ci->router->fetch_module();
+            $sDirLink = base_url($this->sDir . "/{$sModule}/all.{$sType}");
+            $sDirRoot = FCPATH . "{$this->sDir}/{$sModule}";
+            
+            if (is_dir($sDirRoot)) {
+                if (!file_exists($sDirRoot . "/all.{$sType}") OR ( ENVIRONMENT != 'production')) {
+                    $this->ci->load->driver("Minify");
+                    $contents = $this->ci->minify->combine_files($header, $sType);
+                    $this->ci->minify->save_file($contents, $sDirRoot . "/all.{$sType}");
+                }
 
-                    if ($sType == 'css') {
-                        $str .= '<link rel="stylesheet" href="' . $sDirLink . '" type="text/css" />' . "\n";
-                    } else {
-                        $str .= '<script type="text/javascript" src="' . $sDirLink . '"></script>' . "\n";
-                    }
+                if ($sType == 'css') {
+                    $str .= '<link rel="stylesheet" href="' . $sDirLink . '" type="text/css" />' . "\n";
+                } else {
+                    $str .= '<script type="text/javascript" src="' . $sDirLink . '"></script>' . "\n";
                 }
             }
         } else {
-            $header = (ARRAY) $this->ci->config->item('header_' . $sType);
             foreach ($header AS $item) {
                 if ($sType == 'css') {
                     $str .= '<link rel="stylesheet" href="' . base_url($item) . '" type="text/css" />' . "\n";
@@ -147,22 +159,6 @@ class headerjscss {
         }
 
         return $str;
-    }
-
-    #STATIC
-
-    static function putHeaders($bMin = FALSE) {
-        return headerJsCss::putCss($bMin) . headerJsCss::putJs($bMin);
-    }
-
-    static function putCss($bMin = FALSE) {
-        $ci = &get_instance();
-        return $ci->headerjscss->_puts('css', $bMin);
-    }
-
-    static function putJs($bMin = FALSE) {
-        $ci = &get_instance();
-        return $ci->headerjscss->_puts('js', $bMin);
     }
 
 }

@@ -6,7 +6,7 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-class painel_helper {
+class PainelHelper {
 
     static function setMensagemSave($bSave) {
         $CI = & get_instance();

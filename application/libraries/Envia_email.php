@@ -12,7 +12,7 @@ if (!defined('BASEPATH'))
 require_once APPPATH . '/libraries/phpmailer/class.phpmailer.php';
 require_once APPPATH . '/libraries/phpmailer/class.smtp.php';
 
-class envia_email {
+class Envia_email {
 
     private $configEmail, $CI;
 

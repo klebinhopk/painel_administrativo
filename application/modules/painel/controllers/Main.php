@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class main extends MY_Controller {
+class Main extends MY_Controller {
 
     function __construct() {
         parent::__construct();
@@ -75,11 +75,6 @@ class main extends MY_Controller {
         }
         
         return $bValid;
-    }
-
-    function painel_nav() {
-        $nId = (INT) $this->uri->segment(4);
-        $this->session->set_userdata('painel_nav', $nId);
     }
 
     function logout() {

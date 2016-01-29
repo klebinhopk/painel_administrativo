@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class pages extends MY_Controller {
+class Pagina extends MY_Controller {
 
     function __construct() {
         parent::__construct();
@@ -42,7 +42,7 @@ class pages extends MY_Controller {
         $this->load->library('securimage/securimage');
         $this->securimage->charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         $this->securimage->code_length = rand(3, 5);
-//        $this->securimage->display_value = Util::gerarSenha(5, false, true, true, false);
+//        $this->securimage->display_value = UtilHelper::gerarSenha(5, false, true, true, false);
         $this->securimage->num_lines = rand(7, 11);
         $this->securimage->case_sensitive = false;
         $this->securimage->noise_level = rand(2, 5);

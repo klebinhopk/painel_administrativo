@@ -6,7 +6,7 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-class usuario_model extends MY_Model {
+class Usuario_model extends MY_Model {
 
     function __construct() {
         parent::__construct();
@@ -67,7 +67,7 @@ class usuario_model extends MY_Model {
             $vReg['senha'] = $this->encrypt->encode($vDados['senha']);
 
         $bSave = parent::save($vReg);
-        painel_helper::setMensagemSave($bSave);
+        PainelHelper::setMensagemSave($bSave);
         return $bSave;
     }
 
@@ -82,7 +82,7 @@ class usuario_model extends MY_Model {
             $vReg['senha'] = $this->encrypt->encode($vDados['senha']);
 
         $bSave = $this->usuario_model->update($vReg, $nIdUsuario);
-        painel_helper::setMensagemSave($bSave);
+        PainelHelper::setMensagemSave($bSave);
         return $bSave;
     }
 

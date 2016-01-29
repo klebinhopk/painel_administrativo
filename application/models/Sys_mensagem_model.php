@@ -7,8 +7,7 @@
  * @link http://twitter.com/romabeckman
  */
 
-
-class sys_mensagem_model extends MY_Model {
+class Sys_mensagem_model extends MY_Model {
 
     function __construct() {
         parent::__construct();

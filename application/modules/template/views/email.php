@@ -377,9 +377,9 @@
                                                                                 <td>&nbsp;&nbsp;</td>
                                                                                 <td style="color: #fefefe; font-size: 11px; font-weight: normal; font-family: Helvetica, Arial, sans-serif;">
                                                                         <singleline>
-                                                                            <?php echo Util::getSemana(date('w')); ?> 
+                                                                            <?php echo UtilHelper::getSemana(date('w')); ?> 
                                                                             <?php echo date('d'); ?> de 
-                                                                            <?php echo Util::getMes(date('n')); ?>
+                                                                            <?php echo UtilHelper::getMes(date('n')); ?>
                                                                         </singleline>
                                                                 </td>
                                                             </tr>

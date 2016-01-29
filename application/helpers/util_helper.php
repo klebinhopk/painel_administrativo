@@ -6,7 +6,7 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-class Util {
+class UtilHelper {
 
     static function decimalParaBanco($valor) {
         return str_replace(",", ".", str_replace(".", "", str_replace('R$', '', trim($valor))));

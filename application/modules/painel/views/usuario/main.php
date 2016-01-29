@@ -32,7 +32,7 @@ if (isset($vPainelPermissao['painel/usuario/adicionar'])) {
                 <td><?php echo $oUsuario->nome ?></td>
                 <td><?php echo $oUsuario->login ?></td>
                 <td class="hidden-xs"><?php echo ($oUsuario->ativo ? 'Sim' : 'N&atilde;o') ?></td>
-                <td class="hidden-xs hidden-sm"><?php echo Util::converteDataParaPagina($oUsuario->data_cadastro) ?></td>
+                <td class="hidden-xs hidden-sm"><?php echo UtilHelper::converteDataParaPagina($oUsuario->data_cadastro) ?></td>
                 <td class="opcoes">
                     <?php
                     if (isset($vPainelPermissao['painel/usuario/alterar'])) {

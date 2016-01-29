@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class configuracao extends MY_Controller {
+class Configuracao extends MY_Controller {
 
     function __construct() {
         parent::__construct();

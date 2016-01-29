@@ -11,7 +11,7 @@ if (!defined('BASEPATH'))
 
 include_once APPPATH . '/libraries/wideimage/WideImage.php';
 
-class upload_imagem {
+class Upload_imagem {
 
     function upload_imagem() {
         $CI = & get_instance();

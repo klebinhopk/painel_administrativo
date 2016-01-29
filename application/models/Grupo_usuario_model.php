@@ -6,7 +6,7 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-class grupo_usuario_model extends MY_Model {
+class Grupo_usuario_model extends MY_Model {
 
     function __construct() {
         parent::__construct();
@@ -42,7 +42,7 @@ class grupo_usuario_model extends MY_Model {
         );
 
         $bSave = parent::save($vReg);
-        painel_helper::setMensagemSave($bSave);
+        PainelHelper::setMensagemSave($bSave);
         return $bSave;
     }
 

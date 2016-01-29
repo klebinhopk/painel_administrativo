@@ -6,7 +6,7 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-class log_model extends MY_Model {
+class Log_model extends MY_Model {
 
     function __construct() {
         parent::__construct();
@@ -27,11 +27,11 @@ class log_model extends MY_Model {
             unset($vDados["acesso"]);
         }
         if (isset($vDados["data_inicio"])) {
-            $this->db->where('data_cadastro >=', Util::converteDataParaBanco($vDados['data_inicio'] . ' 00:00:00'));
+            $this->db->where('data_cadastro >=', UtilHelper::converteDataParaBanco($vDados['data_inicio'] . ' 00:00:00'));
             unset($vDados["data_inicio"]);
         }
         if (isset($vDados["data_fim"])) {
-            $this->db->where('data_cadastro <=', Util::converteDataParaBanco($vDados['data_fim'] . ' 23:59:59'));
+            $this->db->where('data_cadastro <=', UtilHelper::converteDataParaBanco($vDados['data_fim'] . ' 23:59:59'));
             unset($vDados["data_fim"]);
         }
 
