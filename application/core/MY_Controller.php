@@ -14,6 +14,10 @@ class MY_Controller extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->_setDados();
+    }
+    
+    private function _setDados() {
         $this->_vPost = $this->input->post(NULL, TRUE);
         $this->_vGet = $this->input->get(NULL, TRUE);
         $this->_vPainel = $this->session->userdata('painel');

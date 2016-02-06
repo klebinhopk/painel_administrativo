@@ -9,13 +9,16 @@
 class PainelHelper {
 
     static function setMensagemSave($bSave) {
-        $CI = & get_instance();
-        
         if ($bSave) {
-            $CI->sys_mensagem_model->setFlashData(9);
+            PainelHelper::setMensagem(9);
         } else {
-            $CI->sys_mensagem_model->setFlashData(2);
+            PainelHelper::setMensagem(2);
         }
+    }
+
+    static function setMensagem($nMensagem, array $vDados = array()) {
+        $CI = & get_instance();
+        $CI->sys_mensagem_model->setFlashData($nMensagem, $vDados);
     }
 
 }
