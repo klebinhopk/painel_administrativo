@@ -34,9 +34,7 @@ class MY_Controller extends CI_Controller {
         $vars['_vGet'] = $this->_vGet;
         $vars['_vPainel'] = $this->_vPainel;
         $vars['vPainelPermissao'] = $this->metodo_model->getPermissao($this->_vPainel['id_grupo_usuario']);
-
-        Headerjscss::addJs(array('js.cookie'));
-        Headerjscss::addHeaders('default_painel');
+        
         $this->load->view($view, $vars, $return);
     }
 

@@ -26,6 +26,9 @@ class Auth_hook {
     }
 
     protected function check_logged_painel($module, $classe, $metodo) {
+        Headerjscss::addJs(array('js.cookie'));
+        Headerjscss::addHeaders('default_painel');
+        
         $this->ci->load->model('metodo_model');
         $roMetodo = $this->ci->metodo_model->getAll(array('modulo' => $module, 'classe' => $classe, 'metodo' => $metodo));
 
