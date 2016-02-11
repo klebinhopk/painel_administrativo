@@ -72,20 +72,20 @@ class Headerjscss {
 
     private function _getConfiguration($sType, $sItem) {
         $vHeaderConfiguration = $this->ci->config->item('configuration_' . $sType);
+        $vLinks = array();
+
         if (isset($vHeaderConfiguration[$sItem])) {
             if (is_array($vHeaderConfiguration[$sItem])) {
-                $vLinks = array();
                 foreach ($vHeaderConfiguration[$sItem] as $sLink) {
                     if (is_file(FCPATH . $sLink)) {
-                        $vLinks[] = $sLink;
+                        $vLinks[] = base_url($sLink);
                     }
                 }
-                return $vLinks;
             } elseif (is_file(FCPATH . $vHeaderConfiguration[$sItem])) {
-                return array($vHeaderConfiguration[$sItem]);
+                $vLinks[] = base_url($vHeaderConfiguration[$sItem]);
             }
         }
-        return array();
+        return $vLinks;
     }
 
     private function _processHeader($sType) {
@@ -93,15 +93,22 @@ class Headerjscss {
         $vNewHeader = array();
 
         foreach ($vHeader AS $item) {
-            $vHeaderConfiguration = $this->_getConfiguration($sType, $item);
+            $boolUrl = (BOOLEAN) (filter_var($item, FILTER_VALIDATE_URL) !== false); #IS URL?
+            $vHeaderConfiguration = $boolUrl ? array() : $this->_getConfiguration($sType, $item);
 
-            if (!empty($vHeaderConfiguration)) {
-                $vNewHeader = array_merge($vNewHeader, $vHeaderConfiguration);
-            } elseif (is_file(FCPATH . $item)) {
-                $vNewHeader[] = $item;
+            switch (TRUE) {
+                case!empty($vHeaderConfiguration):
+                    $vNewHeader = array_merge($vNewHeader, $vHeaderConfiguration);
+                    break;
+                case is_file(FCPATH . $item):
+                    $vNewHeader[] = base_url($item);
+                    break;
+                case $boolUrl:
+                    $vNewHeader[] = $item;
+                    break;
             }
         }
-
+        
         return $vNewHeader;
     }
 
@@ -129,7 +136,7 @@ class Headerjscss {
 
                 if (!is_file("{$sDirRoot}/{$sFileName}.min.{$sType}"))
                     file_put_contents("{$sDirRoot}/{$sFileName}.min.{$sType}", $sText);
-                    
+
                 $sFile = "{$sDirLink}/{$sFileName}.min.{$sType}";
             } else {
                 $sFile = "{$sDirLink}/{$sFileName}.{$sType}";
@@ -164,22 +171,7 @@ class Headerjscss {
             }
         } else {
             foreach ($vHeader AS $item) {
-                $boolUrl = (BOOLEAN) (filter_var($item, FILTER_VALIDATE_URL) !== false); #IS URL?
-                $vHeaderConfiguration = $boolUrl ? array() : $this->_getConfiguration($sType, $item);
-
-                switch (TRUE) {
-                    case!empty($vHeaderConfiguration):
-                        foreach ($vHeaderConfiguration as $item) {
-                            $str .= $this->_getHeader(base_url($item), $sType);
-                        }
-                        break;
-                    case is_file(FCPATH . $item):
-                        $str .= $this->_getHeader(base_url($item), $sType);
-                        break;
-                    case $boolUrl:
-                        $str .= $this->_getHeader($item, $sType);
-                        break;
-                }
+                $str .= $this->_getHeader($item, $sType);
             }
         }
 
