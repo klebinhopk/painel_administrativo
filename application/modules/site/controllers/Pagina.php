@@ -10,7 +10,7 @@ class Pagina extends MY_Controller {
     }
 
     public function index() {
-        $data['conteudo'] = "pages/main";
+        $data['conteudo'] = "pagina/main";
         $data['title'] = "Bem vindo!";
         $this->loadTemplateSite(NULL, $data);
     }
@@ -21,7 +21,7 @@ class Pagina extends MY_Controller {
         $data['oPagina'] = $this->pagina_model->get($nId);
 
         if (!empty($data['oPagina'])) {
-            $data['conteudo'] = "pages/pagina";
+            $data['conteudo'] = "pagina/pagina";
             $this->loadTemplateSite(NULL, $data);
         } else {
             $this->pagina_nao_encontrada();
@@ -29,12 +29,12 @@ class Pagina extends MY_Controller {
     }
 
     function pagina_nao_encontrada() {
-        $data['conteudo'] = "pages/404";
+        $data['conteudo'] = "pagina/pagina_nao_encontrada";
         $this->loadTemplateSite(NULL, $data);
     }
 
     function contato() {
-        $data['conteudo'] = "pages/contato";
+        $data['conteudo'] = "pagina/contato";
         $this->loadTemplateSite(NULL, $data);
     }
 
@@ -77,7 +77,7 @@ class Pagina extends MY_Controller {
             $sContato = $this->configuracao_model->getValor('EMAIL_CONTATO');
             $this->envia_email->enviar($sContato, 'Dados de Contato', $sMensagem);
             $this->session->set_flashdata('site_msg', array('msg' => 'E-mail enviado com sucesso!', 'type' => 'success'));
-            redirect('/site/pages/contato', 'refresh');
+            redirect('/site/pagina/contato', 'refresh');
         } else {
             $this->contato();
         }
