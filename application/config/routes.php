@@ -53,8 +53,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = "site/pagina";
 $route['painel'] = "painel/main";
 $route['admin'] = "painel/main";
-$route['404_override'] = '';
+
+$route['pagina-nao-encontrada'] = "site/pagina/pagina_nao_encontrada";
 $route['(pagina)(.*)'] = "site/$1$2";
 
-$route['404_override'] = '';
+$route['404_override'] = "";
 $route['translate_uri_dashes'] = TRUE;

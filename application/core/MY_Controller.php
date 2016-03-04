@@ -44,6 +44,8 @@ class MY_Controller extends CI_Controller {
 
         if (!isset($vars['title']))
             $vars['title'] = NOME_CLIENTE;
+        else
+            $vars['title'] = $vars['title'] . ' - ' . NOME_CLIENTE;
 
         $this->load->view($view, $vars, $return);
     }
