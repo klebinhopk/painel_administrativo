@@ -2,7 +2,7 @@
  * $Id: jquery.domutils.js 460 2008-10-14 16:06:43Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function($) {

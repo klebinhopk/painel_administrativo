@@ -4,7 +4,7 @@
  *
  * @package MCImageManager.utils
  * @author Moxiecode
- * @copyright Copyright © 2005, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2005, Moxiecode Systems AB, All rights reserved.
  */
 
 /**

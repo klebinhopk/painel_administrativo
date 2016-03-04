@@ -2,7 +2,7 @@
  * $Id: jquery.cleanname.js 528 2008-10-29 17:58:01Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function($){

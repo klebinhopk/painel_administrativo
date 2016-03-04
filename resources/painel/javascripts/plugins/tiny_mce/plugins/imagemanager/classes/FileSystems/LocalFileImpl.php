@@ -4,7 +4,7 @@
  *
  * @package MCFileManager.filesystems
  * @author Moxiecode
- * @copyright Copyright © 2005, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2005, Moxiecode Systems AB, All rights reserved.
  */
 
 /**
@@ -275,7 +275,7 @@ class Moxiecode_LocalFileImpl extends Moxiecode_BaseFile {
 	 * @param File $dest File to copy to.
 	 * @return boolean true - success, false - failure
 	 */
-	function copyTo(&$dest) {
+	function copyTo($dest) {
 		$this->_clearCache();
 
 		if ($dest->exists())
@@ -496,7 +496,7 @@ class Moxiecode_LocalFileImpl extends Moxiecode_BaseFile {
 	 * @param File $dest File to rename/move to.
 	 * @return boolean true- success, false - failure
 	 */
-	function renameTo(&$dest) {
+	function renameTo($dest) {
 		$this->_clearCache();
 
 		// Already exists

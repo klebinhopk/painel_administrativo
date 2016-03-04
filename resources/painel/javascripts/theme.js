@@ -588,7 +588,7 @@ var notify = false;
                 $('textarea.tinymce-fullpage').tinymce({
                     language: 'pt',
                     // Location of TinyMCE script
-                    script_url: base_url + 'resources/painel/assets/javascripts/plugins/tiny_mce/tiny_mce.js',
+                    script_url: base_url + 'resources/painel/javascripts/plugins/tiny_mce/tiny_mce.js',
                     // General options
                     width: "100%",
                     height: "500px",
@@ -613,7 +613,7 @@ var notify = false;
                 $('textarea.tinymce').tinymce({
                     language: 'pt',
                     // Location of TinyMCE script
-                    script_url: base_url + 'resources/painel/assets/javascripts/plugins/tiny_mce/tiny_mce.js',
+                    script_url: base_url + 'resources/painel/javascripts/plugins/tiny_mce/tiny_mce.js',
                     // General options
                     width: "100%",
                     height: "500px",

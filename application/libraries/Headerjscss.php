@@ -127,7 +127,7 @@ class Headerjscss {
 
     private function _puts($sType, $bMin = FALSE) {
         $str = '';
-        $this->_loadFile($sType, (ENVIRONMENT == 'production'));
+        $this->_loadFile($sType, $bMin);
         $header = (ARRAY) $this->ci->config->item('header_' . $sType);
 
         if ($bMin) {
@@ -136,7 +136,7 @@ class Headerjscss {
             $sDirRoot = FCPATH . "{$this->sDir}/{$sModule}";
             
             if (is_dir($sDirRoot)) {
-                if (!file_exists($sDirRoot . "/all.{$sType}") OR ( ENVIRONMENT != 'production')) {
+                if (!file_exists($sDirRoot . "/all.{$sType}")) {
                     $this->ci->load->driver("Minify");
                     $contents = $this->ci->minify->combine_files($header, $sType);
                     $this->ci->minify->save_file($contents, $sDirRoot . "/all.{$sType}");

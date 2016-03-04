@@ -2,7 +2,7 @@
  * $Id: jquery.i18n.js 479 2008-10-20 09:00:59Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function($) {

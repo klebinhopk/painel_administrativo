@@ -2,7 +2,7 @@
  * $Id: jquery.dropmenu.js 466 2008-10-15 14:54:52Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function($) {

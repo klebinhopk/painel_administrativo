@@ -4,7 +4,7 @@
  *
  * @package MCImageManager.authenicators
  * @author Moxiecode
- * @copyright Copyright © 2005-2006, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2005-2006, Moxiecode Systems AB, All rights reserved.
  */
 
 // Include Joomla bootstrap logic

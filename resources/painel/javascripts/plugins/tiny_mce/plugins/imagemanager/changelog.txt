@@ -77,7 +77,7 @@ Version 3.1b1 (2008-10-23)
 	Added new resources.xml file for all themes and plugins. These are used to compress and concat js and css files.
 	Added new support for live preview of resize, flip and rotate in image editor.
 	Added new support for file and directory filtering from page level.
-	Added new upload.replace_diacritics option. Replaces national characters like åäöü to aaou.
+	Added new upload.replace_diacritics option. Replaces national characters like Ã¥Ã¤Ã¶Ã¼ to aaou.
 	Added new upload.multiple_upload option. Enables you to disable/enable this support.
 	Added new upload.chunk_size option. Enables you to change the chunk size for each request.
 	Added new support for cross sub domain usage by relaxing the document.domain field.
@@ -198,7 +198,7 @@ Version 3.0.1 (2007-05-21)
 Version 3.0 (2007-05-15)
 	Moved the general.login_page option to authenticator.login_page.
 	Added new _Template plugin, this is a example plugin.
-	Added better support for national characters like åäö in filenames.
+	Added better support for national characters like Ã¥Ã¤Ã¶ in filenames.
 	Fixed so that you can change the default file system impelementation.
 Version 3.0b3 (2007-05-10)
 	Added new CustomInfoExample plugin. Displays how to inject custom file information.

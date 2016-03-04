@@ -64,7 +64,7 @@ class Upload_imagem {
         if ($sExtensao == 'png')
             $nQualidade = ($nQualidade / 10) - 1;
         foreach ($vvConfig as $vConfig) {
-            $sName = array_shift(explode('.', $vImage['name']));
+            $sName = strstr($vImage['name'], '.', true);
             $sName = self::removeAcentuacao($sName);
             $sName = url_title($sName, '-', TRUE);
             $sName = self::validaNomeDaImagem(strtolower($sName), $sExtensao, $vConfig['root']);
@@ -92,8 +92,9 @@ class Upload_imagem {
 
                     foreach ($vvConfig as $vsConfiguracao) {
                         if (is_dir($vsConfiguracao["root"])) {
-                            $sExtensao = end(explode('.', $fileinfo['basename']));
-                            $sFile = array_shift(explode('.', $fileinfo['basename']));
+                            $sExtensao = strstr($fileinfo['basename'], '.');
+                            $sExtensao = str_replace('.', '', $sExtensao);
+                            $sFile = strstr($fileinfo['basename'], '.', true);
                             $sFile = $this->removeAcentuacao($sFile);
                             $sFile = url_title($sFile, '-', TRUE);
                             $sFile = $this->validaNomeDaImagem($sFile, $sExtensao, $vsConfiguracao['root']);

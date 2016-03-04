@@ -2,7 +2,7 @@
  * $Id: mcfilemanager.js 584 2008-11-12 16:26:02Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function() {

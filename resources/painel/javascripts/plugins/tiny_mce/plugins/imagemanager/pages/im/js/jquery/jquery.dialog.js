@@ -2,7 +2,7 @@
  * $Id: jquery.dialog.js 589 2008-11-13 11:15:53Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function($) {

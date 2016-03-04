@@ -4,7 +4,7 @@
  *
  * @package MCManagerCore
  * @author Moxiecode
- * @copyright Copyright © 2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2007, Moxiecode Systems AB, All rights reserved.
  */
 
 // Load local file system

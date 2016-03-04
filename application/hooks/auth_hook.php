@@ -47,7 +47,7 @@ class Auth_hook {
                     $bExist = $this->ci->metodo_model->validarPermissao($vPainel['id_grupo_usuario'], $oMetodo->id);
 
                     //Se não vier nenhum resultado da consulta, manda para a página de usuário sem permissão
-                    if ($bExist == 0)
+                    if ($bExist == 0 AND !$oMetodo->default)
                         redirect('painel/main/sempermissao', 'refresh');
                 } else { //Se não estiver logado, será redirecionado para o login
                     redirect('painel/main/login', 'refresh');

@@ -31,7 +31,7 @@ $mcImageManagerConfig['createdir.allow_override'] = "*";
 // General filesystem options
 $mcImageManagerConfig['filesystem'] = "Moxiecode_LocalFileImpl";
 $mcImageManagerConfig['filesystem.path'] = ''; // absolute or relative from this script path, optional.
-$mcImageManagerConfig['filesystem.rootpath'] = realpath($basepath . '../../../../../../../../upload/tinymce/') . '/'; // absolute or relative from this script path, required.
+$mcImageManagerConfig['filesystem.rootpath'] = $basepath . '../../../../../../../upload/tinymce/'; // absolute or relative from this script path, required.
 $mcImageManagerConfig['filesystem.datefmt'] = "Y-m-d H:i";
 $mcImageManagerConfig['filesystem.include_directory_pattern'] = '';
 $mcImageManagerConfig['filesystem.exclude_directory_pattern'] = '/^mcith$/i';
