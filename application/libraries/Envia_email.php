@@ -1,16 +1,10 @@
 <?php
 
 /**
- * @author Romário Nascimento Beckman <romabeckman@gmail.com,romario@pa.senac.br>
- * @link https://www.linkedin.com/profile/view?id=260417728&trk=spm_pic
- * @link https://www.facebook.com/romabeckman
- * @link http://twitter.com/romabeckman
+ * @author Romário Nascimento Beckman <gtisuporte@pa.senac.br,romario@pa.senac.br>
  */
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-
-require_once APPPATH . '/libraries/phpmailer/class.phpmailer.php';
-require_once APPPATH . '/libraries/phpmailer/class.smtp.php';
 
 class Envia_email {
 
@@ -30,7 +24,7 @@ class Envia_email {
         $sUserName = $this->CI->configuracao_model->getValor('EMAIL_USERNAME');
         $sPassword = $this->CI->configuracao_model->getValor('EMAIL_PASSWORD');
 
-        $this->configEmail = new PHPMailer();
+        $this->configEmail = new \PHPMailer();
 
         if (!empty($sSmtp)) {
             $this->configEmail->IsSMTP(); // Define que a mensagem será SMTP
@@ -60,17 +54,35 @@ class Envia_email {
         $this->configEmail->Port = !empty($nPort) ? $nPort : 25; // Charset da mensagem (opcional)
     }
 
-    function enviar($sPara, $sAssunto, $sMensagem) {
-        if (!empty($sPara) AND ! empty($sAssunto) AND ! empty($sMensagem)) {
+    function enviar($sPara, $sAssunto, $sMensagem, $nIdNotificacao = NULL) {
+        if (!empty($sPara) AND ! empty($sAssunto) AND ! empty($sMensagem) AND ENVIRONMENT == 'production' AND ATIVAR_ENVIO_EMAIL) {
             if (is_array($sPara)) {
                 foreach ($sPara as $para) {
-                    $this->configEmail->AddAddress(trim($para));
+                    $para = trim($para);
+                    if (filter_var($para, FILTER_VALIDATE_EMAIL)) {
+                        $bReceberEmail = $this->CI->usuario_model->receberEmail($para);
+
+                        if ($bReceberEmail)
+                            $this->configEmail->AddAddress($para);
+                    }
                 }
             } else {
-                $this->configEmail->AddAddress(trim($sPara));
+                $sPara = trim($sPara);
+                if (filter_var($sPara, FILTER_VALIDATE_EMAIL)) {
+                    $bReceberEmail = $this->CI->usuario_model->receberEmail($para);
+
+                    if ($bReceberEmail)
+                        $this->configEmail->AddAddress($sPara);
+                }
             }
 
             $this->configEmail->Subject = strip_tags($sAssunto) . " - " . NOME_CLIENTE;
+
+            if (!empty($nIdNotificacao)) {
+                $this->CI->load->library('encrypt');
+                $nIdNotificacao = $this->CI->encrypt->encode($nIdNotificacao);
+                $sMensagem .= '<br /><br /><a href="' . base_url() . 'painel?t=' . urlencode($nIdNotificacao) . '">Link de Acesso</a>';
+            }
             return $this->send($sMensagem, $sAssunto);
         } else {
             return false;

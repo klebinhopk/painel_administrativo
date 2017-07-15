@@ -12,7 +12,7 @@ class Pagina extends MY_Controller {
     public function index() {
         $data['conteudo'] = "pagina/main";
         $data['title'] = "Bem vindo!";
-        $this->loadTemplateSite(NULL, $data);
+        $this->templateSite($data);
     }
 
     function pagina() {
@@ -22,7 +22,7 @@ class Pagina extends MY_Controller {
 
         if (!empty($data['oPagina'])) {
             $data['conteudo'] = "pagina/pagina";
-            $this->loadTemplateSite(NULL, $data);
+            $this->templateSite($data);
         } else {
             $this->pagina_nao_encontrada();
         }
@@ -30,12 +30,12 @@ class Pagina extends MY_Controller {
 
     function pagina_nao_encontrada() {
         $data['conteudo'] = "pagina/pagina_nao_encontrada";
-        $this->loadTemplateSite(NULL, $data);
+        $this->templateSite($data);
     }
 
     function contato() {
         $data['conteudo'] = "pagina/contato";
-        $this->loadTemplateSite(NULL, $data);
+        $this->templateSite($data);
     }
 
     function captcha() {

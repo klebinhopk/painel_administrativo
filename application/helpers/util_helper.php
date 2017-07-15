@@ -1,15 +1,12 @@
 <?php
 
 /**
- * @author Romário Nascimento Beckman <romabeckman@gmail.com,romario@pa.senac.br>
- * @link https://www.linkedin.com/in/romabeckman
- * @link https://www.facebook.com/romabeckman
- * @link http://twitter.com/romabeckman
+ * @author Romário Nascimento Beckman <gtisuporte@pa.senac.br,romario@pa.senac.br>
  */
 class UtilHelper {
 
     static function decimalParaBanco($valor) {
-        return str_replace(",", ".", str_replace(".", "", str_replace('R$', '', trim($valor))));
+        return (DOUBLE) str_replace(",", ".", str_replace(".", "", str_replace('R$', '', trim($valor))));
     }
 
     static function decimalParaPagina($valor, $decimals = 2) {
@@ -29,160 +26,6 @@ class UtilHelper {
         return strtr($string, $characteres);
     }
 
-    static function getSemana($var) {
-        // Usar funcao date('w'); do php
-        switch ($var) {
-            case"0": return $var = "Domingo";
-                break;
-            case"1": return $var = "Segunda-Feira";
-                break;
-            case"2": return $var = "Ter&ccedil;a-Feira";
-                break;
-            case"3": return $var = "Quarta-Feira";
-                break;
-            case"4": return $var = "Quinta-Feira";
-                break;
-            case"5": return $var = "Sexta-Feira";
-                break;
-            case"6": return $var = "S&aacute;bado";
-                break;
-        }
-    }
-
-    static function getSemanaCurto($var) {
-        // Usar funcao date('w'); do php
-        switch ($var) {
-            case"0": return $var = "Dom";
-                break;
-            case"1": return $var = "Seg";
-                break;
-            case"2": return $var = "Ter";
-                break;
-            case"3": return $var = "Qua";
-                break;
-            case"4": return $var = "Qui";
-                break;
-            case"5": return $var = "Sex";
-                break;
-            case"6": return $var = "Sab";
-                break;
-        }
-    }
-
-    static function getMes($var) {
-        // Usar funcao date('n'); do php
-        switch ($var) {
-            case"1": return $var = "Janeiro";
-                break;
-            case"2": return $var = "Fevereiro";
-                break;
-            case"3": return $var = "Mar&ccedil;o";
-                break;
-            case"4": return $var = "Abril";
-                break;
-            case"5": return $var = "Maio";
-                break;
-            case"6": return $var = "Junho";
-                break;
-            case"7": return $var = "Julho";
-                break;
-            case"8": return $var = "Agosto";
-                break;
-            case"9": return $var = "Setembro";
-                break;
-            case"10": return $var = "Outubro";
-                break;
-            case"11": return $var = "Novembro";
-                break;
-            case"12": return $var = "Dezembro";
-                break;
-        }
-    }
-
-    static function getMesCurto($var) {
-        // Usar funcao date('n'); do php
-        switch ($var) {
-            case"1": return $var = "jan";
-                break;
-            case"2": return $var = "fev";
-                break;
-            case"3": return $var = "mar";
-                break;
-            case"4": return $var = "abr";
-                break;
-            case"5": return $var = "mai";
-                break;
-            case"6": return $var = "jun";
-                break;
-            case"7": return $var = "jul";
-                break;
-            case"8": return $var = "ago";
-                break;
-            case"9": return $var = "set";
-                break;
-            case"10": return $var = "out";
-                break;
-            case"11": return $var = "nov";
-                break;
-            case"12": return $var = "dez";
-                break;
-        }
-    }
-
-    private static function converteDmaParaAmd($sData, $sSeparador = "", $bValidate = FALSE) {
-        if (!empty($sData)) {
-            $sSeparadorQuebra = !is_numeric($sData[2]) ? $sData[2] : (!is_numeric($sData[4]) ? $sData[4] : "/");
-
-            list ( $nDia, $nMes, $nAno ) = explode($sSeparadorQuebra, $sData);
-
-            $sSeparador = $sSeparador ? $sSeparador : $sSeparadorQuebra;
-            if (checkdate((INT) $nMes, (INT) $nDia, (INT) $nAno))
-                return ($nAno . $sSeparador . $nMes . $sSeparador . $nDia);
-            else
-                return $bValidate ? NULL : $sData;
-        } else {
-            return $bValidate ? NULL : $sData;
-        }
-    }
-
-    static public function converteDataParaBanco($sDataHora, $bValidate = FALSE) {
-        if (!empty($sDataHora)) {
-            $sDataHora = explode(" ", trim($sDataHora));
-            $sDataHora[0] = self::converteDmaParaAmd($sDataHora[0], "-", $bValidate);
-
-            return !empty($sDataHora[0]) ? trim(implode(" ", $sDataHora)) : NULL;
-        } else {
-            return NULL;
-        }
-    }
-
-    private static function converteAmdParaDma($sData, $sSeparador = "", $bValidate = FALSE) {
-        if (!empty($sData)) {
-            $sSeparadorQuebra = !is_numeric($sData[4]) ? $sData[4] : (!is_numeric($sData[2]) ? $sData[2] : "-");
-
-            list ( $nAno, $nMes, $nDia ) = explode($sSeparadorQuebra, $sData);
-
-            $sSeparador = $sSeparador ? $sSeparador : $sSeparadorQuebra;
-            if (checkdate((INT) $nMes, (INT) $nDia, (INT) $nAno))
-                return ($nDia . $sSeparador . $nMes . $sSeparador . $nAno);
-            else
-                return $bValidate ? NULL : $sData;
-        } else {
-            return $bValidate ? NULL : $sData;
-        }
-    }
-
-    static public function converteDataParaPagina($sDataHora, $bValidate = FALSE) {
-        if (!empty($sDataHora)) {
-            $sDataHora = explode(" ", trim($sDataHora));
-            $sDataHora[0] = self::converteAmdParaDma($sDataHora[0], "/", $bValidate);
-
-            return !empty($sDataHora[0]) ? trim(implode(" ", $sDataHora)) : NULL;
-        } else {
-            return NULL;
-        }
-    }
-
     static function printR($sValor) {
         echo "\n\n<pre>\n";
         print_r($sValor);
@@ -196,9 +39,6 @@ class UtilHelper {
     }
 
     static function gerarSenha($tamanho = 6, $maiuscula = true, $minuscula = true, $numeros = true, $codigos = false) {
-        if ($tamanho <= 0)
-            return '';
-
         $maius = "ABCDEFGHIJKLMNOPQRSTUWXYZ";
         $minus = "abcdefghijklmnopqrstuwxyz";
         $numer = "0123456789";
@@ -218,17 +58,16 @@ class UtilHelper {
         return $senha;
     }
 
-    static function dateDiff($sDe, $sAte) {
-        if ($sDe AND $sAte) {
-            $sDe = strtotime(Util::converteDataParaBanco($sDe));
-            $sAte = strtotime(Util::converteDataParaBanco($sAte));
+    static function substr($sString, $nComprimento = 100, $sUltimaOcorencia = " ", $sEnd = ' (...)') {
+        $sString = strip_tags($sString);
 
-            if ($sDe < $sAte)
-                return floor(($sAte - $sDe) / 86400);
-            else
-                return ceil(($sAte - $sDe) / 86400);
-        } else
-            return false;
+        if (strlen($sString) > $nComprimento) {
+            $sString = substr($sString, 0, $nComprimento);
+            $sString = substr($sString, 0, strrpos($sString, $sUltimaOcorencia));
+            return $sString . $sEnd;
+        } else {
+            return $sString;
+        }
     }
 
     static function array2xml($x, $debug = false, $header = true) {
@@ -285,38 +124,6 @@ class UtilHelper {
         return preg_replace('/[.\/-]/', '', $sValor);
     }
 
-    static function tempoDecorrido($AnoMesDiaInicio, $AnoMesDiaFim = NULL, $nLoop = 1) {
-        if (empty($AnoMesDiaInicio))
-            $AnoMesDiaInicio = date("Y-m-d H:i:s");
-        if (empty($AnoMesDiaFim))
-            $AnoMesDiaFim = date("Y-m-d H:i:s");
-
-        $time = abs(strtotime($AnoMesDiaFim) - strtotime($AnoMesDiaInicio)); // to get the time since that moment
-        $tokens = array(31536000 => 'ano', 31536000 / 12 => 'mês', 31536000 / 52 => 'semana', (31536000 / 365.2425) => 'dia', 3600 => 'hora', 60 => 'minuto', 1 => 'segundo');
-        $sReturn = "";
-
-        $nIndice = 0;
-        foreach ($tokens as $unit => $text) {
-            if ($time < $unit)
-                continue;
-
-            if ($nIndice < $nLoop AND $time > 0) {
-                $numberOfUnits = floor($time / $unit);
-
-                if ($numberOfUnits > 0) {
-                    $text = ($text == 'mês' && $numberOfUnits > 1) ? 'mese' : $text;
-                    $sReturn .= $numberOfUnits . ' ' . $text . (($numberOfUnits > 1) ? 's' : '') . " ";
-                    $time = $time - ($unit * $numberOfUnits);
-                }
-            }
-
-            $nIndice++;
-        }
-
-        $sReturn = trim($sReturn);
-        return empty($sReturn) ? "pouco tempo" : $sReturn;
-    }
-
     static function removeHtml($sText) {
         return htmlspecialchars(strip_tags($sText), ENT_QUOTES);
     }
@@ -339,11 +146,76 @@ class UtilHelper {
         return $sNome;
     }
 
+    static function gerarUrlEncurtada($url) {
+        $xml = simplexml_load_file("http://migre.me/api.xml?url=" . urlencode($url));
+
+        if ($xml->error != 0) {
+            return (STRING) $xml->errormessage;
+        } else {
+            return (STRING) $xml->migre;
+        }
+    }
+
     static function arrayMapEmpty($valor) {
         if (!empty($valor) OR is_numeric($valor)) {
             return $valor;
         } else {
             return NULL;
+        }
+    }
+
+    static function utf8Encode($sText) {
+        if (mb_detect_encoding($sText, 'UTF-8', true) == 'UTF-8')
+            return $sText;
+        else
+            return utf8_encode($sText);
+    }
+
+    static function randColor() {
+        $chars = "ABCDEF0123456789";
+        $size = strlen($chars);
+        $str = '';
+        for ($j = 0; $j < 6; $j++) {
+            $str .= $chars[rand(0, $size - 1)];
+        }
+        return $str;
+    }
+
+    static function printComentarioHtml($texto) {
+        echo "\n<!-- {$texto} -->\n";
+    }
+
+    static function urlAmigavel($sUrl, $sSeparator = NULL) {
+        $sTraco = !empty($sSeparator) ? $sSeparator : '-';
+        $sUrl = Util::removeAcentuacao($sUrl);
+        $sUrl = preg_replace('/[^a-z0-9 ]/i', '', $sUrl);
+        return url_title($sUrl, $sTraco, TRUE);
+    }
+
+    static function filtroArray($valor) {
+        return is_numeric($valor) OR ! empty($valor);
+    }
+
+    static function simNao($val) {
+        return $val ? 'Sim' : 'Não';
+    }
+
+    static function removecharactersEspecial($string, $sExcecao = '') {
+        $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+        $string = preg_replace('/[^A-Za-z0-9' . $sExcecao . '\-]/', '', $string); // Removes special chars.
+        return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+    }
+
+    static function linkify($text) {
+        $reg_exUrl = '/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i';
+        preg_match_all($reg_exUrl, $text, $url);
+
+        if (isset($url[0]) AND ! empty($url[0])) {
+            foreach ($url[0] as $slink)
+                $text = str_replace($slink, "<a target='_BLANK' href='{$slink}'>{$slink}</a>", $text);
+            return $text;
+        } else {
+            return $text;
         }
     }
 

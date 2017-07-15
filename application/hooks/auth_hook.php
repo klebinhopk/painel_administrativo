@@ -12,25 +12,26 @@ if (!defined('BASEPATH'))
 
 class Auth_hook {
 
-    private $ci;
+    private $CI;
 
     public function __construct() {
-        $this->ci = &get_instance();
+        $this->CI = &get_instance();
     }
 
     function check() {
-        $module = $this->ci->router->fetch_module();
+        $module = $this->CI->router->fetch_module();
 
         if ($module == "painel")
-            $this->check_logged_painel($module, $this->ci->router->class, $this->ci->router->method);
+            $this->check_logged_painel($module, $this->CI->router->class, $this->CI->router->method);
     }
 
     protected function check_logged_painel($module, $classe, $metodo) {
-        Headerjscss::addJs(array('js.cookie'));
-        Headerjscss::addHeaders('default_painel');
+        $this->CI->load->dao('painel/usu_permissoes_dao');
+        $this->CI->load->dao('painel/usu_metodo_dao');
+        $this->CI->load->dao('painel/usu_usuario_dao');        
+        $this->CI->load->dao('painel/usu_log_dao');        
         
-        $this->ci->load->model('metodo_model');
-        $roMetodo = $this->ci->metodo_model->getAll(array('modulo' => $module, 'classe' => $classe, 'metodo' => $metodo));
+        $roMetodo = $this->CI->usu_metodo_dao->fetchAll(array('modulo' => $module, 'classe' => $classe, 'metodo' => $metodo));
 
         //Se este método ainda não existir na tabela, será cadastrado   
         if ($roMetodo->num_rows() == 0) {
@@ -39,12 +40,12 @@ class Auth_hook {
         //Se já existir traz as informações de público ou privado
         else {
             $oMetodo = $roMetodo->row();
-            $vPainel = $this->ci->session->userdata('painel');
+            $vPainel = $this->CI->session->userdata('painel');
 
             if ($oMetodo->privado) {
                 //Se o usuário estiver logado vai verificar se tem permissão na tabela
                 if (!empty($vPainel)) {
-                    $bExist = $this->ci->metodo_model->validarPermissao($vPainel['id_grupo_usuario'], $oMetodo->id);
+                    $bExist = $this->CI->usu_metodo_dao->checaSePermissaoExiste($vPainel['id_grupo_usuario'], $oMetodo->id);
 
                     //Se não vier nenhum resultado da consulta, manda para a página de usuário sem permissão
                     if ($bExist == 0 AND !$oMetodo->default)

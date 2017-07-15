@@ -1,32 +1,19 @@
 <?php
 
 /**
- * @author Romário Nascimento Beckman <romabeckman@gmail.com,romario@pa.senac.br>
- * @link https://www.linkedin.com/in/romabeckman
- * @link https://www.facebook.com/romabeckman
- * @link http://twitter.com/romabeckman
+ * @author Romário Nascimento Beckman <gtisuporte@pa.senac.br,romario@pa.senac.br>
  */
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-include_once APPPATH . '/libraries/wideimage/WideImage.php';
+class upload_imagem {
 
-class Upload_imagem {
-
-    function upload_imagem() {
-        $CI = & get_instance();
-        log_message('Debug', 'WideImage class is loaded.');
-    }
-
-    function load($param = NULL) {
-        return new WideImage();
+    function __construct() {
+        new \WideImage\WideImage();
     }
 
     function doUpload($vImage, $vvConfig, $nQualidade = 70) {
         $vsNameImage = array();
-
-        if (isset($vvConfig['root']))
-            $vvConfig = array('default' => $vvConfig);
 
         if (isset($vImage[0])) {
             foreach ($vImage[0]['name'] as $nIndice => $sNameImagem) {
@@ -58,13 +45,10 @@ class Upload_imagem {
         $sExtensao = self::VerificaExtensaoImagem($vImage['name']);
         $sName = NULL;
 
-        if (isset($vvConfig['root']))
-            $vvConfig = array('default' => $vvConfig);
-
         if ($sExtensao == 'png')
             $nQualidade = ($nQualidade / 10) - 1;
         foreach ($vvConfig as $vConfig) {
-            $sName = strstr($vImage['name'], '.', true);
+            $sName = array_shift(explode('.', $vImage['name']));
             $sName = self::removeAcentuacao($sName);
             $sName = url_title($sName, '-', TRUE);
             $sName = self::validaNomeDaImagem(strtolower($sName), $sExtensao, $vConfig['root']);
@@ -78,49 +62,66 @@ class Upload_imagem {
     }
 
     function doUploadImagemZip($vZip, $sDirTemp, $vvConfig, $nQualidade = 60) {
-        $zip = new ZipArchive;
         $vsPathImages = array();
+        $oZip = zip_open($vZip['tmp_name']);
 
-        if ($zip->open($vZip['tmp_name']) === TRUE) {
-            for ($i = 0; $i < $zip->numFiles; $i++) {
-                $filename = $zip->getNameIndex($i);
-                $fileinfo = pathinfo($filename);
+        while ($vZip_entry = zip_read($oZip)) {
+            $sFile = basename(zip_entry_name($vZip_entry));
+            $sExtensao = strtolower(self::VerificaExtensaoImagem($sFile));
 
-                if (isset($fileinfo['extension'])) {
-                    $Tmpname = $sDirTemp . $fileinfo['basename'];
-                    copy("zip://" . $vZip['tmp_name'] . "#" . $filename, $Tmpname);
+            if (preg_match("/(jpeg|jpg|png|gif)$/", $sExtensao) AND $sExtensao) {
+                $sFile = iconv("UTF-8", "ISO-8859-1//IGNORE", $sFile);
 
-                    foreach ($vvConfig as $vsConfiguracao) {
-                        if (is_dir($vsConfiguracao["root"])) {
-                            $sExtensao = strstr($fileinfo['basename'], '.');
-                            $sExtensao = str_replace('.', '', $sExtensao);
-                            $sFile = strstr($fileinfo['basename'], '.', true);
-                            $sFile = $this->removeAcentuacao($sFile);
-                            $sFile = url_title($sFile, '-', TRUE);
-                            $sFile = $this->validaNomeDaImagem($sFile, $sExtensao, $vsConfiguracao['root']);
-                            $endFoto = $vsConfiguracao["root"] . $sFile;
+                $Tmpname = $sDirTemp . basename($sFile);
+                $oFp = fopen($Tmpname, "w+");
 
-                            if (in_array($sFile, $vsPathImages) == false)
-                                $vsPathImages[] = $sFile;
+                if ($oFp) {
+                    if (zip_entry_open($oZip, $vZip_entry, "r")) {
+                        $sBuf = zip_entry_read($vZip_entry, zip_entry_filesize($vZip_entry));
+                        zip_entry_close($vZip_entry);
+                    }
 
-                            if (!in_array(strtolower($sExtensao), array('png', 'jpg', 'jpeg', 'gif'))) {
-                                copy($Tmpname, $endFoto);
-                            } else {
-                                if ($sExtensao == 'png' OR $sExtensao == 'PNG')
-                                    $nQualidade = ($nQualidade / 10) - 1;
+                    fwrite($oFp, $sBuf);
 
-                                WideImage::load($Tmpname)
-                                        ->resizeDown($vsConfiguracao["bound"][0], $vsConfiguracao["bound"][1])
-                                        ->saveToFile($endFoto, $nQualidade);
+                    $Tamanho = zip_entry_filesize($vZip_entry);
+
+                    if (is_file($Tmpname)) {
+                        if ($Tamanho > 0 && strlen($sFile) > 1 AND substr($sFile, 0, 1) !== '.') {  // verifica se tem arquivo enviado
+                            foreach ($vvConfig as $vsConfiguracao) {
+                                if (is_dir($vsConfiguracao["root"])) {
+                                    $sFile = array_shift(explode('.', $sFile));
+                                    $sFile = self::removeAcentuacao($sFile);
+                                    $sFile = url_title($sFile, '-', TRUE);
+                                    $sFile = self::validaNomeDaImagem(strtolower($sFile), $sExtensao, $vsConfiguracao['root']);
+                                    $endFoto = $vsConfiguracao["root"] . $sFile;
+
+                                    if (in_array($sFile, $vsPathImages) == false)
+                                        $vsPathImages[] = $sFile;
+
+                                    if ($nQualidade === -1) {
+                                        if (is_uploaded_file($Tmpname))
+                                            move_uploaded_file($Tmpname, $endFoto);
+                                        else
+                                            copy($Tmpname, $endFoto);
+                                    } else {
+                                        if ($sExtensao == 'png' OR $sExtensao == 'PNG')
+                                            $nQualidade = ($nQualidade / 10) - 1;
+
+                                        WideImage::load($Tmpname)
+                                                ->resizeDown($vsConfiguracao["bound"][0], $vsConfiguracao["bound"][1])
+                                                ->saveToFile($endFoto, $nQualidade);
+                                    }
+                                }
                             }
                         }
                     }
-                    unlink($Tmpname);
+
+                    fclose($oFp);
+                    @unlink($Tmpname);
                 }
             }
-
-            $zip->close();
         }
+
         return $vsPathImages;
     }
 

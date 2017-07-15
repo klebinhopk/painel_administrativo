@@ -12,18 +12,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
-
-        <?php echo headerjscss::putCss(); ?>
-        <!--[if lt IE 9]>
-          <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/ie/html5shiv.js" type="text/javascript"></script>
-          <script src="<?php echo base_url(); ?>resources/painel/assets/javascripts/ie/respond.min.js" type="text/javascript"></script>
-          <![endif]-->
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-        <!--[if lt IE 9]>
-          <script src="js/html5shiv.js"></script>
-          <script src="js/respond.min.js"></script>
-          <![endif]-->
+        <?php echo JsCssHelper::css('default_painel') ?>
     </head>
 
     <body class='contrast-fb login contrast-background'>
@@ -35,7 +24,7 @@
                             <div class='row'>
                                 <div class='col-sm-12'>
                                     <div class='text-center'>
-                                        <?php echo NOME_CLIENTE; ?>
+                                        Bem vindo
                                     </div>
                                 </div>
                             </div>
@@ -57,17 +46,17 @@
                                         <?
                                     }
                                     ?>
-                                    <?php $this->sys_mensagem_model->exibirMensagem(); ?>
-                                    <?php echo form_open("painel/main/login", "class='form-validate'"); ?>
+                                    <?php PainelHelper::exibirMensagem(); ?>
+                                    <?php echo form_open(NULL, "class='form-validate'"); ?>
                                     <div class='form-group'>
                                         <div class='controls with-icon-over-input'>
-                                            <input value="<?php echo set_value('user') ?>" placeholder="Login" class="form-control" required data-rule-required="true" name="user" type="text" />
+                                            <input value="<?php echo set_value('user') ?>" placeholder="Login" class="form-control" required name="user" type="text" />
                                             <i class='icon-user text-muted'></i>
                                         </div>
                                     </div>
                                     <div class='form-group'>
                                         <div class='controls with-icon-over-input'>
-                                            <input value="" placeholder="Senha" class="form-control" required data-rule-required="true" name="pass" type="password" />
+                                            <input value="" placeholder="Senha" class="form-control" required name="pass" type="password" />
                                             <i class='icon-lock text-muted'></i>
                                         </div>
                                     </div>
@@ -108,7 +97,7 @@
                 </div>
             </div>
         </div>
-        <?php echo headerjscss::putJs(); ?>
+        <?php echo JsCssHelper::js('default_painel') ?>
     </body>
 </html>
 

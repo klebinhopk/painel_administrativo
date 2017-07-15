@@ -23,7 +23,7 @@ class Configuracao extends MY_Controller {
             $data['conteudo'] = "configuracao/main";
             $data['title'] = "Configuração";
             $data['vConfiguracao'] = $this->configuracao_model->getAllSelect(array(), 'valor', 'nome');
-            $this->loadTemplatePainel(NULL, $data);
+            $this->templatePainel($data);
         }
     }
 
@@ -32,9 +32,9 @@ class Configuracao extends MY_Controller {
             foreach ($this->_vPost['configuracao'] as $sNome => $sValor) {
                 $this->configuracao_model->salvar($sNome, $sValor);
             }
-            $this->sys_mensagem_model->setFlashData(9);
+            $this->mensagem_model->setFlashData(9);
         } else
-            $this->sys_mensagem_model->setFlashData(1);
+            $this->mensagem_model->setFlashData(1);
 
         redirect('/painel/configuracao', 'refresh');
     }

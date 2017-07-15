@@ -33,11 +33,10 @@ class Log extends MY_Controller {
             $vFiltro = array();
         }
         
-        $this->headerjscss->addHeaders('jqueryui');
         $vPaginate = $this->log_model->getPaginate(base_url() . "painel/log/index/?" . http_build_query($vFiltro), $vFiltro);
         $data['paginacao'] = $vPaginate['links'];
         $data['voLog'] = $vPaginate['data'];
-        $this->loadTemplatePainel(NULL, $data);
+        $this->templatePainel($data);
     }
 
 }

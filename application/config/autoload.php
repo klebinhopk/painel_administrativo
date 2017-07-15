@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'session', 'form_validation', 'pt_form_validation', 'headerjscss');
+$autoload['libraries'] = array('database', 'session', 'security', 'form_validation', 'input');
 
 /*
 | -------------------------------------------------------------------
@@ -72,6 +72,12 @@ $autoload['libraries'] = array('database', 'session', 'form_validation', 'pt_for
 | Prototype:
 |
 |	$autoload['drivers'] = array('cache');
+|
+| You can also supply an alternative property name to be assigned in
+| the controller:
+|
+|	$autoload['drivers'] = array('cache' => 'cch');
+|
 */
 $autoload['drivers'] = array();
 
@@ -83,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'painel','form', 'util');
+$autoload['helper'] = array('util', 'data', 'url','form', 'text', 'security', 'formulario', 'JsCss', 'Painel');
 
 /*
 | -------------------------------------------------------------------
@@ -126,4 +132,20 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('sys_mensagem_model', 'configuracao_model', 'metodo_model', 'log_model');
+$autoload['model'] = array('mensagem_model', 'configuracao_model', 'painel/metodo_model', 'painel/log_model');
+
+/*
+| -------------------------------------------------------------------
+|  Auto-load Models
+| -------------------------------------------------------------------
+| Prototype:
+|
+|	$autoload['dao'] = array('first_dao', 'second_dao');
+|
+| You can also supply an alternative model name to be assigned
+| in the controller:
+|
+|	$autoload['dao'] = array('first_dao' => 'first');
+*/
+$autoload['dao'] = array('sys_mensagem_dao', 'sys_configuracao_dao');
+

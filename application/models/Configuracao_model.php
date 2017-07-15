@@ -6,22 +6,26 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-class Configuracao_model extends MY_Model {
+class Configuracao_model extends ABS_Model {
 
     function __construct() {
         parent::__construct();
-        $this->sTable = 'sys_configuracao';
     }
 
-    function salvar($sNome, $sValor) {
-        $this->db->update($this->sTable, array('valor' => $sValor), array('nome' => $sNome));
+    protected function load() {
+        
     }
 
-    function getValor($sNome) {
-        return $this->db
-                        ->select('valor')
-                        ->get_where($this->sTable, array('nome' => $sNome))
-                        ->row('valor');
+    public function paginate() {
+        
+    }
+
+    public function save() {
+        
+    }
+
+    protected function validar() {
+        
     }
 
 }

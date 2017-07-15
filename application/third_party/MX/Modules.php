@@ -111,7 +111,7 @@ class Modules
 	
 	/** Library base class autoload **/
 	public static function autoload($class) 
-	{	
+	{            
 		/* don't autoload CI_ prefixed classes or those using the config subclass_prefix */
 		if (strstr($class, 'CI_') OR strstr($class, config_item('subclass_prefix'))) return;
 
@@ -135,6 +135,20 @@ class Modules
 		
 		/* autoload library classes */
 		if(is_file($location = APPPATH.'libraries/'.ucfirst($class).EXT)) 
+		{
+			include_once $location;
+			return;
+		}
+                
+                /* autoload interfaces classes */
+		if(is_file($location = APPPATH.'interfaces/'.ucfirst($class).EXT)) 
+		{
+			include_once $location;
+			return;
+		}	
+                
+                /* autoload DAO classes */
+		if(is_file($location = APPPATH.'dao/'.ucfirst($class).EXT)) 
 		{
 			include_once $location;
 			return;

@@ -9,30 +9,30 @@ if (!defined('BASEPATH'))
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-class log_hook {
+class Log_hook {
 
-    private $ci;
+    private $CI;
 
     public function __construct() {
-        $this->ci = &get_instance();
+        $this->CI = &get_instance();
     }
 
     function registrar() {
-        $sModule = $this->ci->router->fetch_module();
-        $sClass = $this->ci->router->class;
-        $sMethod = $this->ci->router->method;
-        $roMetodo = $this->ci->metodo_model->getAll(array('modulo' => $sModule, 'classe' => $sClass, 'metodo' => $sMethod));
+        $sModule = $this->CI->router->fetch_module();
+        $sClass = $this->CI->router->class;
+        $sMethod = $this->CI->router->method;
+        $roMetodo = $this->CI->usu_metodo_dao->fetchAll(array('modulo' => $sModule, 'classe' => $sClass, 'metodo' => $sMethod));
 
         if ($roMetodo->num_rows() > 0) {
             $oMetodo = $roMetodo->row(0);
             if ($oMetodo->privado) {
-                $vDados = $this->ci->input->post(NULL, TRUE);
+                $vDados = $this->CI->input->post(NULL, TRUE);
                 if (isset($vDados['senha']))
                     unset($vDados['senha']);
                 if (isset($vDados['confirmar_senha']))
                     unset($vDados['confirmar_senha']);
                 
-                $this->ci->log_model->saveLog($vDados);
+                $this->CI->log_model->saveLog($vDados);
             }
         }
     }
