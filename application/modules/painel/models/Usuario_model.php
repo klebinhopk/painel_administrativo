@@ -93,7 +93,7 @@ class Usuario_model extends ABS_Model {
         if (!empty($vData['senha']))
             $vReg['senha'] = $this->encrypt->encode($this->_vPost['senha']);
 
-        $bSave = $this->usu_usuario_dao->update($vReg, $this->_vPainel['usuario']);
+        $bSave = $this->usu_usuario_dao->update($vReg, $this->_vPainel['id']);
         PainelHelper::setMensagemSave($bSave);
 
         if ($bSave)
@@ -107,7 +107,7 @@ class Usuario_model extends ABS_Model {
 
         if (!empty($oUsuario)) {
             $login = array(
-                'usuario' => $oUsuario->id,
+                'id' => $oUsuario->id,
                 'nome' => $oUsuario->nome,
                 'email' => $oUsuario->email,
                 'id_grupo_usuario' => $oUsuario->id_grupo_usuario,

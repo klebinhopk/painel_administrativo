@@ -29,8 +29,7 @@ class Print_pdf {
     }
 
     private function getHtmlFooter($bNumeroPagina = FALSE) {
-        $this->CI->load->model('modelo_html_model');
-        $sFooter = $this->CI->modelo_html_model->getCampo(array('id' => 8), 'texto');
+        $sFooter = 'Pastoral da Acolhida';
         $sFooter .= ($bNumeroPagina ? '<div style="text-align: center; font-size: 10px;">{PAGENO}</div>' : '');
         $this->mpdf->SetHTMLFooter($sFooter);
     }
@@ -48,23 +47,18 @@ class Print_pdf {
 
     public function printPdf($sHtml, $sFile = '', $bNumeroPagina = FALSE) {
         $this->getHtmlFooter($bNumeroPagina);
-        $sStylesheet = file_get_contents(FCPATH . "resources/painel/css/impressao_pdf.css");
+        $sStylesheet = file_get_contents(FCPATH . "resources/painel/stylesheets/impressao_pdf.css");
         $this->mpdf->WriteHTML($sStylesheet, 1);
-
         $this->mpdf->WriteHTML(Util::utf8Encode($sHtml), 2);
         $this->mpdf->Output($sFile, 'I');
     }
 
     public function printPdfOficio($sHtml, $sFile = '') {
-        if (ESTADO_ORIGEM == 'PA' AND NOME_REGIONAL == 'senac') { //Exclusivo Senac PA
-            $this->addMargin(5);
-            $sStylesheet = file_get_contents(FCPATH . "resources/painel/css/impressao_pdf_oficio.css");
-            $this->mpdf->WriteHTML($sStylesheet, 1);
-            $this->mpdf->WriteHTML(Util::utf8Encode($sHtml), 2);
-            $this->mpdf->Output($sFile, 'I');
-        } else {
-            $this->printPdf($sHtml, $sFile);
-        }
+        $this->addMargin(5);
+        $sStylesheet = file_get_contents(FCPATH . "resources/painel/stylesheets/impressao_pdf_oficio.css");
+        $this->mpdf->WriteHTML($sStylesheet, 1);
+        $this->mpdf->WriteHTML(Util::utf8Encode($sHtml), 2);
+        $this->mpdf->Output($sFile, 'I');
     }
 
     public function addCss($sCss) {
@@ -73,7 +67,7 @@ class Print_pdf {
     }
 
     public function addBootstrapCss() {
-        $this->addCss(FCPATH . "resources/painel/css/bootstrap.min.css");
+        $this->addCss(FCPATH . "resources/painel/stylesheets/bootstrap/bootstrap.min.css");
     }
 
 }

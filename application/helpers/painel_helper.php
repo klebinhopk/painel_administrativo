@@ -24,7 +24,7 @@ class PainelHelper {
     static public function usuarioSessao() {
         $CI = &get_instance();
         $_vPainel = (ARRAY) $CI->session->userdata('painel');
-        return $CI->usu_usuario_dao->fetchRowById($_vPainel['usuario']);
+        return $CI->usu_usuario_dao->fetchRowById($_vPainel['id']);
     }
 
 }

@@ -57,7 +57,7 @@ class Main extends MY_Controller {
     function recupera() {
         $sLogin = $this->input->post('user', true);
         if (!empty($sLogin)) {
-            $oUsuario = $this->usuario_model->get($sLogin, 'login');
+            $oUsuario = $this->usu_usuario_dao->fetchRowById($sLogin, 'login');
 
             //checa se o usuario exite no banco
             if (!empty($oUsuario)) {

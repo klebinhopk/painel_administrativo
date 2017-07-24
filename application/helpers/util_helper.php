@@ -120,7 +120,7 @@ class UtilHelper {
             echo '</root>';
     }
 
-    static function traraCpfCnpj($sValor) {
+    static function trataCpfCnpj($sValor) {
         return preg_replace('/[.\/-]/', '', $sValor);
     }
 

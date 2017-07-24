@@ -142,7 +142,7 @@ abstract class ABS_Dao extends MY_Dao {
     final static public function find_parent_name(string $sField, $oObject) {
         $CI = &get_instance();
         $class = strtolower(get_called_class());
-        $CI->load->model($class);
+        $CI->load->dao($class);
 
         try {
             if (isset($CI->{$class}))
@@ -171,7 +171,7 @@ abstract class ABS_Dao extends MY_Dao {
     final static public function find_parent_row(string $sField, $oObject) {
         $CI = &get_instance();
         $class = strtolower(get_called_class());
-        $CI->load->model($class);
+        $CI->load->dao($class);
 
         try {
             if (isset($CI->{$class}))
@@ -204,7 +204,8 @@ abstract class ABS_Dao extends MY_Dao {
     }
 
     final public function save(array $vData, $sFieldIdKey = 'id') {
-        return (isset($sFieldIdKey) AND ! empty($vData[$sFieldIdKey])) ?
+        $oRow = $this->fetchRowById($vData[$sFieldIdKey], $sFieldIdKey);
+        return !empty($oRow) ?
                 $this->update($vData, $vData[$sFieldIdKey], $sFieldIdKey) :
                 $this->insert($vData);
     }

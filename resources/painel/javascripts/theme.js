@@ -572,13 +572,13 @@ var notify = false;
 
     this.setMaskInput = function () {
         if (jQuery().mask) {
-            $(".datepicker").mask("99/99/9999");
-            $(".data").mask("99/99/9999");
-            $(".time").mask("99:99");
-            $(".cep").mask("99999-999");
-            $(".cpf").mask("999.999.999-99");
-            $(".cnpj").mask("99.999.999/9999-99");
-            $(".telefone").mask("(99)99999999?9");
+            $(".datepicker").mask("00/00/0000");
+            $(".data").mask("00/00/0000");
+            $(".time").mask("00:00");
+            $(".cep").mask("00000-000");
+            $(".cpf").mask("000.000.000-00");
+            $(".cnpj").mask("00.000.000/0000-00");
+            $(".telefone").mask("(00)00000000#0");
         }
     };
 
