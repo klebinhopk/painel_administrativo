@@ -218,7 +218,7 @@ abstract class ABS_Dao extends MY_Dao {
     public function insert(array $vData) {
         try {
             if ($this->db->insert($this->_sTable, $vData)) {
-                $this->_nInsertId = $this->db->insert_id();
+                $this->nInsertId = $this->db->insert_id();
                 return TRUE;
             } else {
                 $this->nInsertId = NULL;
