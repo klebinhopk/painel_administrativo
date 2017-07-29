@@ -219,6 +219,10 @@ class UtilHelper {
         }
     }
 
+    // USAR COM ARRAY_MAP
+    static function toUppercase($texto) {
+        return strtoupper($texto);
+    }
 }
 
 ?>

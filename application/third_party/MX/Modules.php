@@ -211,7 +211,7 @@ class Modules
 			{			
 				$fullpath = $location.$module.'/'.$base.$subpath;
 				
-				if ($base == 'libraries/' OR $base == 'models/')
+				if ($base == 'libraries/' OR $base == 'models/'  OR $base == 'daos/')
 				{
 					if(is_file($fullpath.ucfirst($file_ext))) return array($fullpath, ucfirst($file));
 				}

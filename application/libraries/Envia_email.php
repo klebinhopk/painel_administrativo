@@ -12,17 +12,17 @@ class Envia_email {
 
     public function __construct($vParams = array()) {
         $this->CI = &get_instance();
-        $this->CI->load->model('configuracao_model');
+        $this->CI->load->model('sys_configuracao_dao');
 
-        $sFrom = $this->CI->configuracao_model->getValor('EMAIL_FROM');
-        $sFromName = $this->CI->configuracao_model->getValor('EMAIL_FROM_NAME');
+        $sFrom = $this->CI->sys_configuracao_dao->getValor('EMAIL_FROM');
+        $sFromName = $this->CI->sys_configuracao_dao->getValor('EMAIL_FROM_NAME');
 
-        $sSmtp = $this->CI->configuracao_model->getValor('EMAIL_SMTP');
-        $nPort = (INT) $this->CI->configuracao_model->getValor('EMAIL_PORT');
-        $sSecure = $this->CI->configuracao_model->getValor('EMAIL_SECURE');
+        $sSmtp = $this->CI->sys_configuracao_dao->getValor('EMAIL_SMTP');
+        $nPort = (INT) $this->CI->sys_configuracao_dao->getValor('EMAIL_PORT');
+        $sSecure = $this->CI->sys_configuracao_dao->getValor('EMAIL_SECURE');
 
-        $sUserName = $this->CI->configuracao_model->getValor('EMAIL_USERNAME');
-        $sPassword = $this->CI->configuracao_model->getValor('EMAIL_PASSWORD');
+        $sUserName = $this->CI->sys_configuracao_dao->getValor('EMAIL_USERNAME');
+        $sPassword = $this->CI->sys_configuracao_dao->getValor('EMAIL_PASSWORD');
 
         $this->configEmail = new \PHPMailer();
 

@@ -26,6 +26,16 @@ class MY_Loader extends MX_Loader {
         if (empty($dao))
             return $this;
 
+        $path = '';
+        // Is the dao in a sub-folder? If so, parse out the filename and path.
+        if (($last_slash = strrpos($dao, '/')) !== FALSE) {
+            // The path is in front of the last slash
+            $path = substr($dao, 0, ++$last_slash);
+
+            // And the dao name behind it
+            $dao = substr($dao, $last_slash);
+        }
+
         if (empty($name))
             $name = strtolower($dao);
 
@@ -39,20 +49,20 @@ class MY_Loader extends MX_Loader {
         $dao = ucfirst($dao);
         if (!class_exists($dao, FALSE)) {
             foreach ($this->_ci_dao_paths as $mod_path) {
-                if (!file_exists($mod_path . $dao . '.php'))
+                if (!file_exists($mod_path . $path . $dao . '.php'))
                     continue;
 
-                require_once($mod_path . $dao . '.php');
+                require_once($mod_path . $path . $dao . '.php');
 
                 if (!class_exists($dao, FALSE))
-                    throw new RuntimeException($mod_path . $dao . ".php exists, but doesn't declare class " . $dao);
+                    throw new RuntimeException($mod_path . $path . $dao . ".php exists, but doesn't declare class " . $dao);
                 break;
             }
-            
+
             if (!class_exists($dao, FALSE))
-                throw new RuntimeException('Unable to locate the dao you have specified: ' . $dao);
+                throw new RuntimeException('Unable to locate the dao you have specified: ' . $path . $dao);
         } elseif (!is_subclass_of($dao, 'MY_Dao'))
-            throw new RuntimeException("Class " . $dao . " already exists and doesn't extend MY_Dao");
+            throw new RuntimeException("Class " . $path . $dao . " already exists and doesn't extend MY_Dao");
 
         $this->_ci_daos[] = $name;
         $CI->$name = new $dao();
@@ -78,7 +88,7 @@ class MY_Loader extends MX_Loader {
 
         /* check module */
         list($path, $_dao) = Modules::find(strtolower($dao), $this->_module, 'daos/');
-        
+
         if ($path == FALSE) {
             /* check application & packages */
             $this->_dao_default_load($dao, $object_name);

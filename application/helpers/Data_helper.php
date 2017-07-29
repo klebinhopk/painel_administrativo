@@ -3,7 +3,7 @@
 /**
  * @author Romário Nascimento Beckman <gtisuporte@pa.senac.br,romario@pa.senac.br>
  */
-class dataHelper {
+class DataHelper {
 
     static function getTurno($var) {
         // Usar funcao timr('w'); do php
@@ -346,6 +346,18 @@ class dataHelper {
 
         $sReturn = trim($sReturn);
         return empty($sReturn) ? "pouco tempo" : $sReturn;
+    }
+
+    static function between($Data, $DataInicio, $DataFinal) {
+        $Data = self::converteDataParaBanco($Data);
+        $DataInicio = self::converteDataParaBanco($DataInicio);
+        $DataFinal = self::converteDataParaBanco($DataFinal);
+
+        $Data = strtotime($Data);
+        $DataInicio = strtotime($DataInicio);
+        $DataFinal = strtotime($DataFinal);
+        
+        return (BOOL) ($DataInicio <= $Data AND $DataFinal >= $Data);
     }
 
 }

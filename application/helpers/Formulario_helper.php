@@ -6,15 +6,15 @@
 class FormularioHelper {
 
     static function inputDataInicio($nameDataInicio, $nameDataFim, $valorDataInicio = NULL, $classRequired = NULL) {
-        $sIdIni = Util::removecharactersEspecial($nameDataInicio);
-        $sIdFim = Util::removecharactersEspecial($nameDataFim);
-        return form_input($nameDataInicio, set_value($nameDataInicio, (!empty($valorDataInicio) ? Util::converteDataParaPagina($valorDataInicio) : '')), 'size="11" id="' . $sIdIni . '_0" data-target="#' . $sIdFim . '_1" class="data-range-start form-control dateBR ' . $classRequired . '"');
+        $sIdIni = UtilHelper::removecharactersEspecial($nameDataInicio);
+        $sIdFim = UtilHelper::removecharactersEspecial($nameDataFim);
+        return form_input($nameDataInicio, set_value($nameDataInicio, (!empty($valorDataInicio) ? DataHelper::converteDataParaPagina($valorDataInicio) : '')), 'size="11" id="' . $sIdIni . '_0" data-target="#' . $sIdFim . '_1" class="data-range-start form-control dateBR ' . $classRequired . '"');
     }
 
     static function inputDataFim($nameDataInicio, $nameDataFim, $valorDataFim = NULL, $classRequired = NULL) {
-        $sIdIni = Util::removecharactersEspecial($nameDataInicio);
-        $sIdFim = Util::removecharactersEspecial($nameDataFim);
-        return form_input($nameDataFim, set_value($nameDataFim, (!empty($valorDataFim) ? Util::converteDataParaPagina($valorDataFim) : '')), 'size="11" id="' . $sIdFim . '_1" data-target="#' . $sIdIni . '_0" class="data-range-end form-control dateBR ' . $classRequired . '"');
+        $sIdIni = UtilHelper::removecharactersEspecial($nameDataInicio);
+        $sIdFim = UtilHelper::removecharactersEspecial($nameDataFim);
+        return form_input($nameDataFim, set_value($nameDataFim, (!empty($valorDataFim) ? DataHelper::converteDataParaPagina($valorDataFim) : '')), 'size="11" id="' . $sIdFim . '_1" data-target="#' . $sIdIni . '_0" class="data-range-end form-control dateBR ' . $classRequired . '"');
     }
 
     static function intervaloDataPadrao($nameDataInicio, $nameDataFim, $valorDataInicio = NULL, $valorDataFim = NULL, $classRequired = NULL) {

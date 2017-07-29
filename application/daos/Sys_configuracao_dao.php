@@ -21,4 +21,7 @@ class Sys_configuracao_dao extends ABS_Dao {
         $this->save(array('valor' => $sValor, 'nome' => $sNome), 'nome');
     }
 
+    function getValor(string $sNome) {
+        return (STRING) $this->db->get_where($this->_sTable, array('nome' => $sNome))->row('valor');
+    }
 }
