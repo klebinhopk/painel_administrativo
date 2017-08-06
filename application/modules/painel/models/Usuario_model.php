@@ -17,21 +17,21 @@ class Usuario_model extends ABS_Model {
     }
 
     protected function validar() {
-        $this->form_validation->set_rules('id_grupo_usuario', 'Grupo usuário', 'required|max_length[10]');
-        $this->form_validation->set_rules('nome', 'Nome', 'required|max_length[200]');
-        $this->form_validation->set_rules('login', 'Login', 'required|max_length[100]');
-        $this->form_validation->set_rules('senha', 'Senha', 'max_length[200]');
-        $this->form_validation->set_rules('email', 'Email', 'required|max_length[100]|valid_email');
-        $this->form_validation->set_rules('ativo', 'Ativo', '');
-        $this->form_validation->set_rules('deletado', 'Deletado', '');
-        return $this->form_validation->run();
+        $this->my_form_validation->set_rules('id_grupo_usuario', 'Grupo usuário', 'required|max_length[10]');
+        $this->my_form_validation->set_rules('nome', 'Nome', 'required|max_length[200]');
+        $this->my_form_validation->set_rules('login', 'Login', 'required|max_length[100]');
+        $this->my_form_validation->set_rules('senha', 'Senha', 'max_length[200]');
+        $this->my_form_validation->set_rules('email', 'Email', 'required|max_length[100]|valid_email');
+        $this->my_form_validation->set_rules('ativo', 'Ativo', '');
+        $this->my_form_validation->set_rules('deletado', 'Deletado', '');
+        return $this->my_form_validation->run();
     }
 
     protected function validar_meus_dados() {
-        $this->form_validation->set_rules('nome', 'Nome', 'required|max_length[200]');
-        $this->form_validation->set_rules('login', 'Login', 'required|max_length[100]');
-        $this->form_validation->set_rules('email', 'Email', 'required|max_length[100]|valid_email');
-        return $this->form_validation->run();
+        $this->my_form_validation->set_rules('nome', 'Nome', 'required|max_length[200]');
+        $this->my_form_validation->set_rules('login', 'Login', 'required|max_length[100]');
+        $this->my_form_validation->set_rules('email', 'Email', 'required|max_length[100]|valid_email');
+        return $this->my_form_validation->run();
     }
 
     protected function load() {

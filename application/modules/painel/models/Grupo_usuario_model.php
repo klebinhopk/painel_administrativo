@@ -21,9 +21,9 @@ class Grupo_usuario_model extends ABS_Model {
     }
 
     protected function validar() {
-        $this->form_validation->set_rules('nome', 'Nome', 'required|max_length[45]');
-        $this->form_validation->set_rules('deletado', 'Deletado', '');
-        return $this->form_validation->run();
+        $this->my_form_validation->set_rules('nome', 'Nome', 'required|max_length[45]');
+        $this->my_form_validation->set_rules('deletado', 'Deletado', '');
+        return $this->my_form_validation->run();
     }
     
     public function paginate() {

@@ -85,10 +85,10 @@ class Main extends MY_Controller {
             return FALSE;
         
         $this->load->library('encrypt');
-        $this->form_validation->set_rules('user', 'login', 'required');
-        $this->form_validation->set_rules('pass', 'Senha', 'required|callback_check_login_senha[' . $this->_vPost['user'] . ']');
+        $this->my_form_validation->set_rules('user', 'login', 'required');
+        $this->my_form_validation->set_rules('pass', 'Senha', 'required|callback_check_login_senha[' . $this->_vPost['user'] . ']');
 
-        return $this->form_validation->run();
+        return $this->my_form_validation->run();
     }
     
     function check_login_senha($sSenhaInput, $sLogin) {
@@ -97,11 +97,11 @@ class Main extends MY_Controller {
             $sSenha = $this->encrypt->decode($sSenha);
 
             if (strcmp($sSenha, $sSenhaInput) !== 0) {
-                $this->form_validation->set_message('check_login_senha', 'Senha informada não é válida.');
+                $this->my_form_validation->set_message('check_login_senha', 'Senha informada não é válida.');
                 return FALSE;
             }
         } else {
-            $this->form_validation->set_message('check_login_senha', 'Login informado não existe.');
+            $this->my_form_validation->set_message('check_login_senha', 'Login informado não existe.');
             return FALSE;
         }
 

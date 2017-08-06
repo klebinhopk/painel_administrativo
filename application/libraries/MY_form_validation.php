@@ -1,16 +1,21 @@
 <?php
 
+require_once BASEPATH . 'libraries/Form_validation.php';
+
 class MY_form_validation extends CI_Form_validation {
-    
+
     public $CI;
-            
+    private $vMessage = array(
+        "date_br" => "A %s informada não é válida",
+        "cpf" => "CPF informado não é válido",
+        "cnpj" => "CNPJ informado não é válido",
+        "is_unique_custom" => "%s informado já existe",
+        "opcoes" => "%s informado não é válido"
+    );
+
     function __construct() {
         parent::__construct();
-        $this->set_message("date_br", "A %s informada não é válida");
-        $this->set_message("cpf", "CPF informado não é válido");
-        $this->set_message("cnpj", "CNPJ informado não é válido");
-        $this->set_message("is_unique_custom", "%s informado já existe");
-        $this->set_message("opcoes", "%s informado não é válido");
+        $this->_error_messages = array_merge($this->_error_messages, $this->vMessage);
     }
 
     /**
@@ -21,6 +26,8 @@ class MY_form_validation extends CI_Form_validation {
      * @return	bool 
      */
     public function date_br($sDate) {
+        if (empty($sDate))
+            return TRUE;
         list ( $nDia, $nMes, $nAno ) = explode('/', $sDate);
         return checkdate((INT) $nMes, (INT) $nDia, (INT) $nAno);
     }
@@ -33,6 +40,8 @@ class MY_form_validation extends CI_Form_validation {
      * @return	bool 
      */
     public function cpf($sCpf) {
+        if (empty($sCpf))
+            return TRUE;
         $sCpf = preg_replace('/[.-]/', "", $sCpf);
         $proibidos = array('11111111111', '22222222222', '33333333333',
             '44444444444', '55555555555', '66666666666', '77777777777',
@@ -71,6 +80,8 @@ class MY_form_validation extends CI_Form_validation {
      * @return	bool 
      */
     public function cnpj($sCnpj) {
+        if (empty($sCnpj))
+            return TRUE;
         $sCnpj = preg_replace('/[.\/-]/', "", $sCnpj);
 
         if (strlen($sCnpj) > 14)
@@ -112,6 +123,8 @@ class MY_form_validation extends CI_Form_validation {
      * @return	bool 
      */
     public function is_unique_custom($str, $field) {
+        if (empty($str))
+            return TRUE;
         $nSeparador = substr_count($field, ',');
 
         if ($nSeparador < 2)
@@ -142,7 +155,14 @@ class MY_form_validation extends CI_Form_validation {
      * @return	bool 
      */
     public function opcoes($str, $field) {
+        if (empty($str))
+            return TRUE;
         return !empty($str) ? in_array($str, explode(',', $field)) : TRUE;
+    }
+
+    static function validation_errors($prefix = '', $suffix = '') {
+        $CI = &get_instance();
+        return $CI->my_form_validation->error_string($prefix, $suffix);
     }
 
 }

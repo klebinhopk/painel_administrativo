@@ -172,7 +172,7 @@
                                 <div class='col-sm-12'>
                                     <?php $this->mensagem_model->exibirMensagem(); ?>
                                     <?php
-                                    $sValidationError = validation_errors('<div>', '</div>');
+                                    $sValidationError = MY_form_validation::validation_errors('<div>', '</div>');
                                     if (!empty($sValidationError)) {
                                         ?>
                                         <div class="alert alert-danger">

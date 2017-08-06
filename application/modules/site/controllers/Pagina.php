@@ -53,14 +53,14 @@ class Pagina extends MY_Controller {
     }
 
     function envia_contato() {
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('nome', 'Nome', 'required');
-        $this->form_validation->set_rules('email', 'E-mail', 'required|valid_email');
-        $this->form_validation->set_rules('assunto', 'Assunto', 'required');
-        $this->form_validation->set_rules('mensagem', 'Mensagem', 'required');
-        //$this->form_validation->set_rules('code', 'Código de Segurança', 'required|callback_code_check');
+        $this->load->library('my_form_validation');
+        $this->my_form_validation->set_rules('nome', 'Nome', 'required');
+        $this->my_form_validation->set_rules('email', 'E-mail', 'required|valid_email');
+        $this->my_form_validation->set_rules('assunto', 'Assunto', 'required');
+        $this->my_form_validation->set_rules('mensagem', 'Mensagem', 'required');
+        //$this->my_form_validation->set_rules('code', 'Código de Segurança', 'required|callback_code_check');
         
-        if ($this->form_validation->run()) {
+        if ($this->my_form_validation->run()) {
             $vDados = $this->input->post();
             $vDados = $this->security->xss_clean($vDados);
 
@@ -88,7 +88,7 @@ class Pagina extends MY_Controller {
         if ($this->securimage->check($sCode)) {
             return TRUE;
         } else {
-            $this->form_validation->set_message('code_check', 'Código de segurança informao não é válido');
+            $this->my_form_validation->set_message('code_check', 'Código de segurança informao não é válido');
             return FALSE;
         }
     }

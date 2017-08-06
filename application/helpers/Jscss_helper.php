@@ -49,7 +49,7 @@ class JsCssHelper {
 
     private static function _view($type) {
         $path = FCPATH . self::path;
-        
+
         if (!is_dir($path))
             return;
 
@@ -64,10 +64,10 @@ class JsCssHelper {
         $file = strtolower($class . '_' . $method . '.' . $type);
         $path = $path . strtolower('/' . $module . '/' . $type . '/');
         $url = base_url(self::path) . strtolower($module . '/' . $type . '/');
-        
+
         if (!is_file($path . $file))
             return;
-        
+
         $type == 'js' ?
                         self::js($url . $file) :
                         self::css($url . $file);
@@ -81,7 +81,7 @@ class JsCssHelper {
         self::_view('css');
     }
 
-    static function css($Css, string $complement = 'rel="stylesheet"') {
+    static function css($Css, $complement = 'rel="stylesheet"') {
         if (empty(self::$vCss))
             self::loadCss();
 
@@ -91,15 +91,20 @@ class JsCssHelper {
         $pos = strpos(strtolower($Css), 'http');
         if ($pos === FALSE) {
             if (isset(self::$vCss[$Css])) {
-                if (is_array(self::$vCss[$Css]))
+                if (is_array(self::$vCss[$Css])) {
                     self::list_files_css(self::$vCss[$Css]);
-            } else
-                echo '<link href="' . base_url($Css) . '" ' . $complement . ' />';
+                    return;
+                }
+
+                $Css = self::$vCss[$Css];
+            }
+
+            echo '<link href="' . base_url($Css) . '" ' . $complement . ' />';
         } else
             echo '<link href="' . $Css . '" ' . $complement . ' />';
     }
 
-    static function js($Js, string $complement = '') {
+    static function js($Js, $complement = '') {
         if (empty(self::$vJs))
             self::loadJs();
 
@@ -115,6 +120,8 @@ class JsCssHelper {
                     self::list_files_js(self::$vJs[$Js]);
                     return;
                 }
+                
+                $Js = self::$vJs[$Js];
             }
 
             echo '<script src="' . base_url($Js) . '" ' . $complement . '></script>';

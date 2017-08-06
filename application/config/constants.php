@@ -86,3 +86,7 @@ defined('EXIT__AUTO_MIN') OR define('EXIT__AUTO_MIN', 9); // lowest automaticall
 defined('EXIT__AUTO_MAX') OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 define('NOME_CLIENTE', 'Painel Administrativo');
+
+define('MESES', 'a:12:{i:1;s:7:"Janeiro";i:2;s:9:"Fevereiro";i:3;s:12:"Mar&ccedil;o";i:4;s:5:"Abril";i:5;s:4:"Maio";i:6;s:5:"Junho";i:7;s:5:"Julho";i:8;s:6:"Agosto";i:9;s:8:"Setembro";i:10;s:7:"Outubro";i:11;s:8:"Novembro";i:12;s:8:"Dezembro";}');
+define('ESTADOS', 'a:27:{s:2:"AC";s:4:"Acre";s:2:"AL";s:7:"Alagoas";s:2:"AM";s:8:"Amazonas";s:2:"AP";s:6:"Amapá";s:2:"BA";s:5:"Bahia";s:2:"CE";s:6:"Ceará";s:2:"DF";s:16:"Distrito Federal";s:2:"ES";s:15:"Espírito Santo";s:2:"GO";s:6:"Goiás";s:2:"MA";s:9:"Maranhão";s:2:"MT";s:11:"Mato Grosso";s:2:"MS";s:18:"Mato Grosso do Sul";s:2:"MG";s:12:"Minas Gerais";s:2:"PA";s:5:"Pará";s:2:"PB";s:8:"Paraíba";s:2:"PR";s:7:"Paraná";s:2:"PE";s:10:"Pernambuco";s:2:"PI";s:6:"Piauí";s:2:"RJ";s:14:"Rio de Janeiro";s:2:"RN";s:19:"Rio Grande do Norte";s:2:"RO";s:9:"Rondônia";s:2:"RS";s:17:"Rio Grande do Sul";s:2:"RR";s:7:"Roraima";s:2:"SC";s:14:"Santa Catarina";s:2:"SE";s:7:"Sergipe";s:2:"SP";s:10:"São Paulo";s:2:"TO";s:9:"Tocantins";}');
+define('DIAS_SEMANA', 'a:7:{i:0;s:7:"Domingo";i:1;s:13:"Segunda-Feira";i:2;s:12:"Terça-Feira";i:3;s:12:"Quarta-Feira";i:4;s:12:"Quinta-Feira";i:5;s:11:"Sexta-Feira";i:6;s:7:"Sábado";}');
