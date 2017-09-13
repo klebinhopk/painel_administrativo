@@ -1,6 +1,8 @@
 <?php
 
-class Usu_log_dao extends ABS_Dao {
+namespace Painel;
+
+class Usu_log_dao extends \ABS_Dao {
 
     protected function load() {
         $this->_sTable = 'usu_log';

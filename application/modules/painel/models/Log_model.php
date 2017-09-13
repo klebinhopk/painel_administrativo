@@ -1,5 +1,7 @@
 <?php
 
+namespace Painel;
+
 /**
  * @author Romário Nascimento Beckman <romabeckman@gmail.com,romario@pa.senac.br>
  * @link https://www.linkedin.com/in/romabeckman
@@ -8,7 +10,8 @@
  */
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-class Log_model extends MY_Model {
+
+class Log_model extends \MY_Model {
 
     function __construct() {
         parent::__construct();

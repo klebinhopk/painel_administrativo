@@ -1,5 +1,7 @@
 <?php
 
+namespace Painel;
+
 /**
  * @author Romário Nascimento Beckman <romabeckman@gmail.com,romario@pa.senac.br>
  * @link https://www.linkedin.com/in/romabeckman
@@ -9,7 +11,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Grupo_usuario_model extends ABS_Model {
+class Grupo_usuario_model extends \ABS_Model {
 
     function __construct() {
         parent::__construct();
@@ -25,7 +27,7 @@ class Grupo_usuario_model extends ABS_Model {
         $this->my_form_validation->set_rules('deletado', 'Deletado', '');
         return $this->my_form_validation->run();
     }
-    
+
     public function paginate() {
         $nPerPage = 30;
         $nPage = (INT) $this->input->get('per_page');
@@ -44,12 +46,12 @@ class Grupo_usuario_model extends ABS_Model {
             return;
         if ($this->validar() == FALSE)
             return;
-        
+
         $vReg = array(
             'id' => $this->uri->segment(4),
             'nome' => $this->_vPost["nome"]
         );
-        
+
         $vReg = array_map('UtilHelper::arrayMapEmpty', $vReg);
         $bSave = $this->usu_grupo_usuario_dao->save($vReg);
         PainelHelper::setMensagemSave($bSave);

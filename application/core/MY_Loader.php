@@ -97,8 +97,13 @@ class MY_Loader extends MX_Loader {
 
             Modules::load_file($_dao, $path);
 
-            $dao = ucfirst($_dao);
-            CI::$APP->$_alias = new $dao();
+            $namespace = $this->fileNamespace($dao);
+            if (class_exists($namespace, FALSE)) {
+                CI::$APP->$_alias = new $namespace();
+            } else {
+                $dao = ucfirst($_dao);
+                CI::$APP->$_alias = new $dao();
+            }
 
             $this->_ci_daos[] = $_alias;
         }

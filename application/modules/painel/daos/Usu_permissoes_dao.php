@@ -1,5 +1,7 @@
 <?php
 
+namespace Painel;
+
 /**
  * @author Romário Nascimento Beckman <romabeckman@gmail.com,romario@pa.senac.br>
  * @link https://www.linkedin.com/in/romabeckman
@@ -9,7 +11,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Usu_permissoes_dao extends ABS_Dao {
+class Usu_permissoes_dao extends \ABS_Dao {
 
     protected function load() {
         $this->_sTable = 'usu_permissoes';

@@ -13,9 +13,9 @@ class Usuario extends ABS_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('usuario_model');
-        $this->load->model('grupo_usuario_model');
-        $this->load->dao('usu_grupo_usuario_dao');
+        $this->load->model('painel/usuario_model');
+        $this->load->model('painel/grupo_usuario_model');
+        $this->load->dao('painel/usu_grupo_usuario_dao');
     }
 
     protected function load() {

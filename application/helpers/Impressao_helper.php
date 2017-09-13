@@ -60,13 +60,13 @@ class ImpressaoHelper {
     static function formatoExibicao($sHtml, $Formato, $sTitulo = '') {
         switch ($Formato) {
             case 'pdf':
-                Impressao::imprimirPdf($sHtml);
+                ImpressaoHelper::imprimirPdf($sHtml);
                 break;
             case 'pdf_paisagem':
-                Impressao::imprimirPdfPaisagem($sHtml);
+                ImpressaoHelper::imprimirPdfPaisagem($sHtml);
                 break;
             case 'excel':
-                Impressao::imprimirExcel($sHtml, $sTitulo);
+                ImpressaoHelper::imprimirExcel($sHtml, $sTitulo);
                 break;
 
             default:
