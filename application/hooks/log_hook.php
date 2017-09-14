@@ -21,7 +21,7 @@ class Log_hook {
         $sModule = $this->CI->router->fetch_module();
         $sClass = $this->CI->router->class;
         $sMethod = $this->CI->router->method;
-        $roMetodo = $this->CI->usu_metodo_dao->fetchAll(array('modulo' => $sModule, 'classe' => $sClass, 'metodo' => $sMethod));
+        $roMetodo = $this->CI->painel_usu_metodo_dao->fetchAll(array('modulo' => $sModule, 'classe' => $sClass, 'metodo' => $sMethod));
 
         if ($roMetodo->num_rows() > 0) {
             $oMetodo = $roMetodo->row(0);
@@ -32,7 +32,7 @@ class Log_hook {
                 if (isset($vDados['confirmar_senha']))
                     unset($vDados['confirmar_senha']);
                 
-                $this->CI->log_model->saveLog($vDados);
+                $this->CI->painel_log_model->saveLog($vDados);
             }
         }
     }

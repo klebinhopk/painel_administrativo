@@ -13,8 +13,8 @@ class Permissoes extends MY_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('grupo_usuario_model');
-        $this->load->model('metodo_model');
+        $this->load->model('painel/grupo_usuario_model');
+        $this->load->model('painel/metodo_model');
     }
 
     function index() {
@@ -26,10 +26,10 @@ class Permissoes extends MY_Controller {
             return;
         }
         
-        $data['oGrupoUsuario'] = $this->usu_grupo_usuario_dao->fetchRowById($nIdGrupoUsuario);
+        $data['oGrupoUsuario'] = $this->painel_usu_grupo_usuario_dao->fetchRowById($nIdGrupoUsuario);
         $data['migalha'] = array("painel/grupo_usuario" => "Grupo de Usuário");
         $data['title'] = "Permissões - " . $data['oGrupoUsuario']->nome;
-        $data = array_merge($data, $this->metodo_model->listarPermissoesPorGrupo($nIdGrupoUsuario));
+        $data = array_merge($data, $this->painel_metodo_model->listarPermissoesPorGrupo($nIdGrupoUsuario));
         $this->templatePainel($data);
         
         
@@ -40,7 +40,7 @@ class Permissoes extends MY_Controller {
         $vDados = $this->security->xss_clean($vDados);
 
         if (!empty($vDados)) {
-            $this->metodo_model->save($vDados['id_grupo_usuario'], isset($vDados['id_metodo']) ? $vDados['id_metodo'] : NULL);
+            $this->painel_metodo_model->save($vDados['id_grupo_usuario'], isset($vDados['id_metodo']) ? $vDados['id_metodo'] : NULL);
             $this->mensagem_model->setFlashData(9);
             redirect('/painel/permissoes/index/' . $vDados['id_grupo_usuario'], 'refresh');
         } else

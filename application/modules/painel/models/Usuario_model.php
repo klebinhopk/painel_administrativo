@@ -45,8 +45,8 @@ class Usuario_model extends\ABS_Model {
         $nPage = (INT) $this->input->get('per_page');
 
         $vData = array();
-        $nTotal = $this->usu_usuario_dao->fetchField($vData, "COUNT(*) AS total");
-        $rResult = $this->usu_usuario_dao->fetchPaginate($vData, $nPerPage, $nPage);
+        $nTotal = $this->painel_usu_usuario_dao->fetchField($vData, "COUNT(*) AS total");
+        $rResult = $this->painel_usu_usuario_dao->fetchPaginate($vData, $nPerPage, $nPage);
 
         $this->load->library('paginacao', array('total_rows' => $nTotal, 'base_url' => self::url_paginate(), 'per_page' => $nPerPage, 'cur_page' => $nPage));
         $sLinks = $this->paginacao->painel();
@@ -73,8 +73,8 @@ class Usuario_model extends\ABS_Model {
             $vReg['senha'] = $this->encrypt->encode($this->_vPost['senha']);
 
         $vReg = array_map('UtilHelper::arrayMapEmpty', $vReg);
-        $bSave = $this->usu_usuario_dao->save($vReg);
-        PainelHelper::setMensagemSave($bSave);
+        $bSave = $this->painel_usu_usuario_dao->save($vReg);
+        \PainelHelper::setMensagemSave($bSave);
 
         if ($bSave)
             redirect('painel/usuario');
@@ -95,8 +95,8 @@ class Usuario_model extends\ABS_Model {
         if (!empty($vData['senha']))
             $vReg['senha'] = $this->encrypt->encode($this->_vPost['senha']);
 
-        $bSave = $this->usu_usuario_dao->update($vReg, $this->_vPainel['id']);
-        PainelHelper::setMensagemSave($bSave);
+        $bSave = $this->painel_usu_usuario_dao->update($vReg, $this->_vPainel['id']);
+        \PainelHelper::setMensagemSave($bSave);
 
         if ($bSave)
             redirect('painel/usuario/meus_dados');
@@ -105,7 +105,7 @@ class Usuario_model extends\ABS_Model {
     public function processaLogin() {
         $usuario = $this->_vPost['user'];
         $senha = $this->_vPost['pass'];
-        $oUsuario = $this->usu_usuario_dao->getLogin($usuario, $senha);
+        $oUsuario = $this->painel_usu_usuario_dao->getLogin($usuario, $senha);
 
         if (!empty($oUsuario)) {
             $login = array(
@@ -119,7 +119,7 @@ class Usuario_model extends\ABS_Model {
 
             $this->session->set_userdata(array('painel' => $login));
             $this->session->set_userdata('painel_nav', 1);
-            PainelHelper::setMensagem(3);
+            \PainelHelper::setMensagem(3);
             $this->log_model->saveLog(array('id' => $oUsuario->id, 'nome' => $oUsuario->nome, 'emil' => $oUsuario->email, 'id_grupo_usuario' => $oUsuario->id_grupo_usuario));
         }
     }

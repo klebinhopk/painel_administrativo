@@ -13,8 +13,8 @@ class Main extends MY_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->dao('usu_usuario_dao');
-        $this->load->model('usuario_model');
+        $this->load->dao('painel/usu_usuario_dao');
+        $this->load->model('painel/usuario_model');
     }
 
     public function index() {
@@ -29,7 +29,7 @@ class Main extends MY_Controller {
 
     function login() {
         if ($this->validation_login()) {
-            $this->usuario_model->processaLogin();
+            $this->painel_usuario_model->processaLogin();
             redirect('painel');
             return;
         }
@@ -57,7 +57,7 @@ class Main extends MY_Controller {
     function recupera() {
         $sLogin = $this->input->post('user', true);
         if (!empty($sLogin)) {
-            $oUsuario = $this->usu_usuario_dao->fetchRowById($sLogin, 'login');
+            $oUsuario = $this->painel_usu_usuario_dao->fetchRowById($sLogin, 'login');
 
             //checa se o usuario exite no banco
             if (!empty($oUsuario)) {
@@ -92,7 +92,7 @@ class Main extends MY_Controller {
     }
     
     function check_login_senha($sSenhaInput, $sLogin) {
-        $sSenha = $this->usu_usuario_dao->fetchField(array('login' => $sLogin, 'ativo' => 1), 'senha');
+        $sSenha = $this->painel_usu_usuario_dao->fetchField(array('login' => $sLogin, 'ativo' => 1), 'senha');
         if (!empty($sSenha)) {
             $sSenha = $this->encrypt->decode($sSenha);
 

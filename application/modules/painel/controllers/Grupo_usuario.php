@@ -13,8 +13,8 @@ class Grupo_usuario extends ABS_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('grupo_usuario_model');
-        $this->load->dao('usu_grupo_usuario_dao');
+        $this->load->model('painel/grupo_usuario_model');
+        $this->load->dao('painel/usu_grupo_usuario_dao');
     }
 
     protected function load() {
@@ -22,7 +22,7 @@ class Grupo_usuario extends ABS_Controller {
     }
 
     public function index() {
-        $vPaginate = $this->grupo_usuario_model->paginate();
+        $vPaginate = $this->painel_grupo_usuario_model->paginate();
         $data['sPaginacao'] = $vPaginate['links'];
         $data['roGrupoUsuario'] = $vPaginate['result'];
 
@@ -31,7 +31,7 @@ class Grupo_usuario extends ABS_Controller {
     }
 
     public function adicionar() {
-        $this->grupo_usuario_model->save();
+        $this->painel_grupo_usuario_model->save();
 
         $data['migalha'] = array('painel/grupo_usuario' => 'Grupo de Usuários');
         $data['title'] = "Adicionar Grupo de Usuário";
@@ -40,16 +40,16 @@ class Grupo_usuario extends ABS_Controller {
 
     public function alterar() {
         $nId = $this->uri->segment(4);
-        $data['oGrupoUsuario'] = $this->usu_grupo_usuario_dao->fetchRowById($nId);
+        $data['oGrupoUsuario'] = $this->painel_usu_grupo_usuario_dao->fetchRowById($nId);
 
         if (empty($data['oGrupoUsuario'])) {
             $this->mensagem_model->setFlashData(7);
             redirect('painel/grupo_usuario');
             return;
         }
-        if ($this->validacao()) {
+        if (!empty($this->_vPost)) {
             $this->_vPost['id'] = $data['oGrupoUsuario']->id;
-            $this->grupo_usuario_model->save($this->_vPost);
+            $this->painel_grupo_usuario_model->save($this->_vPost);
             redirect('painel/grupo_usuario');
             return;
         }
@@ -62,7 +62,7 @@ class Grupo_usuario extends ABS_Controller {
     public function remover() {
         $nId = $this->uri->segment(4);
 
-        if ($this->usu_grupo_usuario_dao->remove($nId))
+        if ($this->painel_usu_grupo_usuario_dao->remove($nId))
             $this->mensagem_model->setFlashData(8);
         else
             $this->mensagem_model->setFlashData(1);

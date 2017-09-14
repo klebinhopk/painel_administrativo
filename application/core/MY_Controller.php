@@ -33,7 +33,7 @@ class MY_Controller extends CI_Controller {
     }
     
     protected function templatePainel($vVars = array(), $bReturn = FALSE) {
-        $vVars['vPainelPermissao'] = $this->usu_metodo_dao->permissaoPorGrupo($this->_vPainel['id_grupo_usuario']);
+        $vVars['vPainelPermissao'] = $this->painel_usu_metodo_dao->permissaoPorGrupo($this->_vPainel['id_grupo_usuario']);
         return $this->template('template/painel', strtolower($this->router->class . '/' . $this->router->method), $vVars, $bReturn);
     }
     

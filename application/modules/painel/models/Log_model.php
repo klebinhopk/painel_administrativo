@@ -92,7 +92,7 @@ class Log_model extends \MY_Model {
                 'ip' => $this->input->ip_address(),
             );
 
-            $this->usu_log_dao->insert($vLog);
+            $this->painel_usu_log_dao->insert($vLog);
         }
     }
 

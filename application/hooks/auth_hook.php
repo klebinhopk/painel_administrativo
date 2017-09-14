@@ -31,7 +31,7 @@ class Auth_hook {
         $this->CI->load->dao('painel/usu_usuario_dao');        
         $this->CI->load->dao('painel/usu_log_dao');        
         
-        $roMetodo = $this->CI->usu_metodo_dao->fetchAll(array('modulo' => $module, 'classe' => $classe, 'metodo' => $metodo));
+        $roMetodo = $this->CI->painel_usu_metodo_dao->fetchAll(array('modulo' => $module, 'classe' => $classe, 'metodo' => $metodo));
 
         //Se este método ainda não existir na tabela, será cadastrado   
         if ($roMetodo->num_rows() == 0) {
@@ -45,7 +45,7 @@ class Auth_hook {
             if ($oMetodo->privado) {
                 //Se o usuário estiver logado vai verificar se tem permissão na tabela
                 if (!empty($vPainel)) {
-                    $bExist = $this->CI->usu_metodo_dao->checaSePermissaoExiste($vPainel['id_grupo_usuario'], $oMetodo->id);
+                    $bExist = $this->CI->painel_usu_metodo_dao->checaSePermissaoExiste($vPainel['id_grupo_usuario'], $oMetodo->id);
 
                     //Se não vier nenhum resultado da consulta, manda para a página de usuário sem permissão
                     if ($bExist == 0 AND !$oMetodo->default)

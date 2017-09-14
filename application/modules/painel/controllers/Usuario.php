@@ -23,7 +23,7 @@ class Usuario extends ABS_Controller {
     }
 
     public function index() {
-        $vPaginate = $this->usuario_model->paginate();
+        $vPaginate = $this->painel_usuario_model->paginate();
         $data['sPaginacao'] = $vPaginate['links'];
         $data['roUsuario'] = $vPaginate['result'];
 
@@ -33,9 +33,9 @@ class Usuario extends ABS_Controller {
     }
 
     public function adicionar() {
-        $this->usuario_model->save();
+        $this->painel_usuario_model->save();
 
-        $data['vsGrupoUsuario'] = array('' => 'Selecione') + $this->usu_grupo_usuario_dao->fetchToDropdown();
+        $data['vsGrupoUsuario'] = array('' => 'Selecione') + $this->painel_usu_grupo_usuario_dao->fetchToDropdown();
         $data['migalha'] = array('painel/usuario' => 'Usuário');
         $data['title'] = "Adicionar Usuário";
         $this->templatePainel($data);
@@ -43,7 +43,7 @@ class Usuario extends ABS_Controller {
 
     public function alterar() {
         $nId = $this->uri->segment(4);
-        $data['oUsuario'] = $this->usu_usuario_dao->fetchRowById($nId);
+        $data['oUsuario'] = $this->painel_usu_usuario_dao->fetchRowById($nId);
 
         if (empty($data['oUsuario'])) {
             $this->mensagem_model->setFlashData(7);
@@ -51,9 +51,9 @@ class Usuario extends ABS_Controller {
             return;
         }
 
-        $this->usuario_model->save();
+        $this->painel_usuario_model->save();
 
-        $data['vsGrupoUsuario'] = array('' => 'Selecione') + $this->usu_grupo_usuario_dao->fetchToDropdown();
+        $data['vsGrupoUsuario'] = array('' => 'Selecione') + $this->painel_usu_grupo_usuario_dao->fetchToDropdown();
         $data['migalha'] = array('painel/usuario' => 'Usuário');
         $data['title'] = "Alterar Usuário";
         $this->templatePainel($data);
@@ -62,18 +62,18 @@ class Usuario extends ABS_Controller {
     public function remover() {
         $nId = $this->uri->segment(4);
         
-        if ($this->usu_usuario_dao->remove($nId))
-            PainelHelper::setMensagem (8);
+        if ($this->painel_usu_usuario_dao->remove($nId))
+            \PainelHelper::setMensagem (8);
         else
-            PainelHelper::setMensagem (1);
+            \PainelHelper::setMensagem (1);
 
         redirect('painel/usuario');
     }
 
     public function meus_dados() {
-        $this->usuario_model->save_meus_dados();
+        $this->painel_usuario_model->save_meus_dados();
 
-        $data['oUsuario'] = PainelHelper::usuarioSessao();
+        $data['oUsuario'] = \PainelHelper::usuarioSessao();
         $data['conteudo'] = "usuario/meus_dados";
         $data['title'] = "Alterar meus dados de acesso";
         $this->templatePainel($data);

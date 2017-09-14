@@ -33,8 +33,8 @@ class Grupo_usuario_model extends \ABS_Model {
         $nPage = (INT) $this->input->get('per_page');
 
         $vData = array();
-        $nTotal = $this->usu_grupo_usuario_dao->fetchField($vData, "COUNT(*) AS total");
-        $rResult = $this->usu_grupo_usuario_dao->fetchPaginate($vData, $nPerPage, $nPage);
+        $nTotal = $this->painel_usu_grupo_usuario_dao->fetchField($vData, "COUNT(*) AS total");
+        $rResult = $this->painel_usu_grupo_usuario_dao->fetchPaginate($vData, $nPerPage, $nPage);
 
         $this->load->library('paginacao', array('total_rows' => $nTotal, 'base_url' => self::url_paginate(), 'per_page' => $nPerPage, 'cur_page' => $nPage));
         $sLinks = $this->paginacao->painel();
@@ -53,8 +53,8 @@ class Grupo_usuario_model extends \ABS_Model {
         );
 
         $vReg = array_map('UtilHelper::arrayMapEmpty', $vReg);
-        $bSave = $this->usu_grupo_usuario_dao->save($vReg);
-        PainelHelper::setMensagemSave($bSave);
+        $bSave = $this->painel_usu_grupo_usuario_dao->save($vReg);
+        \PainelHelper::setMensagemSave($bSave);
 
         if ($bSave)
             redirect('painel/grupo_usuario');

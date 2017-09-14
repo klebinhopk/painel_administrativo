@@ -13,8 +13,8 @@ class Log extends MY_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('log_model');
-        $this->load->model('usuario_model');
+        $this->load->model('painel/log_model');
+        $this->load->model('painel/usuario_model');
     }
 
     function index() {
@@ -33,7 +33,7 @@ class Log extends MY_Controller {
             $vFiltro = array();
         }
         
-        $vPaginate = $this->log_model->getPaginate(base_url() . "painel/log/index/?" . http_build_query($vFiltro), $vFiltro);
+        $vPaginate = $this->painel_log_model->getPaginate(base_url() . "painel/log/index/?" . http_build_query($vFiltro), $vFiltro);
         $data['paginacao'] = $vPaginate['links'];
         $data['voLog'] = $vPaginate['data'];
         $this->templatePainel($data);

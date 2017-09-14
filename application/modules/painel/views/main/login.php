@@ -46,7 +46,7 @@
                                         <?
                                     }
                                     ?>
-                                    <?php PainelHelper::exibirMensagem(); ?>
+                                    <?php \PainelHelper::exibirMensagem(); ?>
                                     <?php echo form_open(NULL, "class='form-validate'"); ?>
                                     <div class='form-group'>
                                         <div class='controls with-icon-over-input'>

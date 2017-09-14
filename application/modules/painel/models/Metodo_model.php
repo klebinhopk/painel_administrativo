@@ -42,7 +42,7 @@ class Metodo_model extends \MY_Model {
 
     function listarPermissoesPorGrupo($nIdGrupoUsuario) {
         $data = array();
-        $voMetodo = $this->usu_metodo_dao->todasPermissoes($nIdGrupoUsuario);
+        $voMetodo = $this->painel_usu_metodo_dao->todasPermissoes($nIdGrupoUsuario);
         $data['voMetodo'] = array();
         foreach ($voMetodo as $oMetodo) {
             $data['vsModulo'][$oMetodo->modulo] = $oMetodo->modulo;
