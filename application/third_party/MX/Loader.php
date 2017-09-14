@@ -173,6 +173,7 @@ class MX_Loader extends CI_Loader {
 
             $namespace = $this->fileNamespace($library);
             if (class_exists($namespace, FALSE)) {
+                $_alias = str_replace('\\', '_', $namespace);
                 CI::$APP->$_alias = new $namespace();
             } else {
                 $library = ucfirst($_library);
@@ -221,6 +222,7 @@ class MX_Loader extends CI_Loader {
 
             $namespace = $this->fileNamespace($model);
             if (class_exists($namespace, FALSE)) {
+                $_alias = str_replace('\\', '_', $namespace);
                 CI::$APP->$_alias = new $namespace();
             } else {
                 $model = ucfirst($_model);

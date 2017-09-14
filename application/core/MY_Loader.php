@@ -99,6 +99,7 @@ class MY_Loader extends MX_Loader {
 
             $namespace = $this->fileNamespace($dao);
             if (class_exists($namespace, FALSE)) {
+                $_alias = str_replace('\\', '_', $namespace);
                 CI::$APP->$_alias = new $namespace();
             } else {
                 $dao = ucfirst($_dao);
