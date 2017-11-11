@@ -53,22 +53,15 @@ class Usu_metodo_dao extends \ABS_Dao {
         $vPermissao = array();
         $voMetodo = $this->db
                 ->order_by('classe, metodo')
-                ->where(array('privado' => 1))
+                ->where("privado = 1 AND (SELECT COUNT(*) FROM usu_permissoes WHERE usu_permissoes.id_metodo = {$this->_sTable}.id AND id_grupo_usuario = {$nIdGrupoUsuario})")
                 ->get($this->_sTable)
                 ->result();
-
+                
         if (!empty($voMetodo)) {
             foreach ($voMetodo as $oMetodo) {
-                $bPermissao = (INT) $this->db
-                                ->select('COUNT(*) AS existe')
-                                ->get_where('usu_permissoes', array('id_metodo' => $oMetodo->id, 'id_grupo_usuario' => $nIdGrupoUsuario))
-                                ->row('existe');
-
-                if (!empty($bPermissao))
-                    $vPermissao["{$oMetodo->modulo}/{$oMetodo->classe}/{$oMetodo->metodo}"] = $bPermissao;
+                $vPermissao["{$oMetodo->modulo}/{$oMetodo->classe}/{$oMetodo->metodo}"] = 1;
             }
         }
-
         return $vPermissao;
     }
 

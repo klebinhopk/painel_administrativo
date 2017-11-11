@@ -14,7 +14,6 @@ class MY_Controller extends CI_Controller {
         $this->_vPost = (ARRAY) $this->input->post(NULL, TRUE);
         $this->_vGet = (ARRAY) $this->input->get(NULL, TRUE);
         $this->_vPainel = (ARRAY) $this->session->userdata('painel');
-        $this->form_validation->CI =& $this;
     }
 
     protected function template($sTemplate, $sView, $vVars = array(), $bReturn = FALSE) {

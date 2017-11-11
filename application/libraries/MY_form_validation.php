@@ -16,6 +16,7 @@ class MY_form_validation extends CI_Form_validation {
     function __construct() {
         parent::__construct();
         $this->_error_messages = array_merge($this->_error_messages, $this->vMessage);
+        $this->CI =& get_instance();
     }
 
     /**

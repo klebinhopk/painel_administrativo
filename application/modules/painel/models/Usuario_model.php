@@ -120,7 +120,7 @@ class Usuario_model extends\ABS_Model {
             $this->session->set_userdata(array('painel' => $login));
             $this->session->set_userdata('painel_nav', 1);
             \PainelHelper::setMensagem(3);
-            $this->log_model->saveLog(array('id' => $oUsuario->id, 'nome' => $oUsuario->nome, 'emil' => $oUsuario->email, 'id_grupo_usuario' => $oUsuario->id_grupo_usuario));
+            $this->painel_log_model->saveLog(array('id' => $oUsuario->id, 'nome' => $oUsuario->nome, 'emil' => $oUsuario->email, 'id_grupo_usuario' => $oUsuario->id_grupo_usuario));
         }
     }
 
