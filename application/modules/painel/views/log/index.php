@@ -66,27 +66,31 @@
     </thead>
     <tbody>
         <?php
-        foreach ($voLog as $oLog) {
-            ?>
-            <tr>
-                <td><?php echo $oLog->usuario ?></td>
-                <td><?php echo $oLog->acesso ?></td>
-                <td><?php echo $oLog->ip ?><?php echo!empty($oLog->usuario_ip) ? "<br />({$oLog->usuario_ip})" : "" ?></td>
-                <td><?php echo dataHelper::converteDataParaPagina($oLog->data_cadastro) ?></td>
-                <td class="opcoes">
-                    <a class="btn btn-info ver-dados" href="javascript:;"><i class="fa fa-search-plus"></i><span class="hidden-sm hidden-xs"> Ver Dados</span></a>
-                    <div style="display: none;" class="descricao">
-                        <?php
-                        $vDados = (ARRAY) unserialize($oLog->descricao);
-                        if (isset($vDados['dados_sessao']['auth'])) {
-                            $vDados['dados_sessao']['auth'] = ellipsize($vDados['dados_sessao']['auth'], 10, 0.5);
-                        }
-                        UtilHelper::printR($vDados);
-                        ?>
-                    </div>
-                </td>
-            </tr>
-        <?php } ?>
+        if ($roLog->num_rows() > 0) {
+            foreach ($roLog->result() as $oLog) {
+                ?>
+                <tr>
+                    <td><?php echo $oLog->usuario ?></td>
+                    <td><?php echo $oLog->acesso ?></td>
+                    <td><?php echo $oLog->ip ?><?php echo!empty($oLog->usuario_ip) ? "<br />({$oLog->usuario_ip})" : "" ?></td>
+                    <td><?php echo dataHelper::converteDataParaPagina($oLog->data_cadastro) ?></td>
+                    <td class="opcoes">
+                        <a class="btn btn-info ver-dados" href="javascript:;"><i class="fa fa-search-plus"></i><span class="hidden-sm hidden-xs"> Ver Dados</span></a>
+                        <div style="display: none;" class="descricao">
+                            <?php
+                            $vDados = (ARRAY) unserialize($oLog->descricao);
+                            if (isset($vDados['dados_sessao']['auth'])) {
+                                $vDados['dados_sessao']['auth'] = ellipsize($vDados['dados_sessao']['auth'], 10, 0.5);
+                            }
+                            UtilHelper::printR($vDados);
+                            ?>
+                        </div>
+                    </td>
+                </tr>
+                <?php
+            }
+        }
+        ?>
     </tbody>
 </table>
 <?php echo $paginacao; ?>

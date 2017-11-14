@@ -140,13 +140,6 @@ class Modules
 			return;
 		}
                 
-                /* autoload interfaces classes */
-		if(is_file($location = APPPATH.'interfaces/'.ucfirst($class).EXT)) 
-		{
-			include_once $location;
-			return;
-		}	
-                
                 /* autoload DAO classes */
 		if(is_file($location = APPPATH.'dao/'.ucfirst($class).EXT)) 
 		{

@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Sys_mensagem_dao extends ABS_Dao {
+class Sys_mensagem_dao extends MY_Dao {
 
     protected function load() {
         $this->_sTable = 'sys_mensagem';

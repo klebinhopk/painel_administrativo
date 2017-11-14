@@ -6,7 +6,7 @@
  * @link https://www.facebook.com/romabeckman
  * @link http://twitter.com/romabeckman
  */
-class Configuracao_model extends ABS_Model {
+class Configuracao_model extends MY_Model {
 
     function __construct() {
         parent::__construct();

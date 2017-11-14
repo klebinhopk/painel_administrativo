@@ -223,6 +223,15 @@ class UtilHelper {
     static function toUppercase($texto) {
         return strtoupper($texto);
     }
+
+    static public function url_paginate($vParams = array()) {
+        $CI = &get_instance();
+        $vArray = (ARRAY) $CI->input->get(NULL, TRUE);
+        if (isset($vArray['per_page']))
+            unset($vArray['per_page']);
+        return current_url() . '?' . http_build_query(array_merge($vArray, $vParams));
+    }
+
 }
 
 ?>

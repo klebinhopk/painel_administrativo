@@ -33,9 +33,9 @@ class Log extends MY_Controller {
             $vFiltro = array();
         }
         
-        $vPaginate = $this->painel_log_model->getPaginate(base_url() . "painel/log/index/?" . http_build_query($vFiltro), $vFiltro);
+        $vPaginate = $this->painel_log_model->paginate($vFiltro);
         $data['paginacao'] = $vPaginate['links'];
-        $data['voLog'] = $vPaginate['data'];
+        $data['roLog'] = $vPaginate['result'];
         $this->templatePainel($data);
     }
 

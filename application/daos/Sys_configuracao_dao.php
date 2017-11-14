@@ -7,7 +7,7 @@
  */
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-class Sys_configuracao_dao extends ABS_Dao {
+class Sys_configuracao_dao extends MY_Dao {
 
     protected function load() {
         $this->_sTable = 'sys_configuracao';

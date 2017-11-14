@@ -44,26 +44,16 @@ class Log_model extends \MY_Model {
             $this->db->where($vDados);
     }
 
-    function getPaginate($sUrl, $vDados = array()) {
-        $this->filtro($vDados);
-        $nTotal = $this->db->select('COUNT(*) AS total')
-                ->get($this->_sTable)
-                ->row('total');
-
+    public function paginate($vData = array()) {
         $nPerPage = 30;
-        $nPaginas = (INT) $this->input->get('per_page');
-        $this->filtro($vDados);
-        $result = $this->db
-                ->select('*')
-                ->select("(SELECT nome FROM usu_usuario WHERE {$this->_sTable}.id_usuario = usu_usuario.id) AS usuario")
-                ->order_by('id DESC')
-                ->limit($nPerPage, $nPaginas)
-                ->get($this->_sTable)
-                ->result();
+        $nPage = (INT) $this->input->get('per_page');
+        
+        $nTotal = $this->painel_usu_log_dao->fetchField($vData, "COUNT(*) AS total");
+        $rResult = $this->painel_usu_log_dao->fetchPaginate($vData, $nPerPage, $nPage);
 
-        $this->load->library('paginacao', array('total_rows' => $nTotal, 'base_url' => $sUrl, 'per_page' => $nPerPage, 'cur_page' => $nPaginas));
+        $this->load->library('paginacao', array('total_rows' => $nTotal, 'base_url' => \UtilHelper::url_paginate(), 'per_page' => $nPerPage, 'cur_page' => $nPage));
         $sLinks = $this->paginacao->painel();
-        return array('data' => $result, 'links' => $sLinks);
+        return array('result' => $rResult, 'links' => $sLinks, 'total' => $nTotal);
     }
 
     /**

@@ -11,7 +11,7 @@ namespace Painel;
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Grupo_usuario_model extends \ABS_Model {
+class Grupo_usuario_model extends \MY_Model {
 
     function __construct() {
         parent::__construct();
@@ -36,7 +36,7 @@ class Grupo_usuario_model extends \ABS_Model {
         $nTotal = $this->painel_usu_grupo_usuario_dao->fetchField($vData, "COUNT(*) AS total");
         $rResult = $this->painel_usu_grupo_usuario_dao->fetchPaginate($vData, $nPerPage, $nPage);
 
-        $this->load->library('paginacao', array('total_rows' => $nTotal, 'base_url' => self::url_paginate(), 'per_page' => $nPerPage, 'cur_page' => $nPage));
+        $this->load->library('paginacao', array('total_rows' => $nTotal, 'base_url' => \UtilHelper::url_paginate(), 'per_page' => $nPerPage, 'cur_page' => $nPage));
         $sLinks = $this->paginacao->painel();
         return array('result' => $rResult, 'links' => $sLinks, 'total' => $nTotal);
     }

@@ -9,7 +9,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Grupo_usuario extends ABS_Controller {
+class Grupo_usuario extends MY_Controller {
 
     function __construct() {
         parent::__construct();

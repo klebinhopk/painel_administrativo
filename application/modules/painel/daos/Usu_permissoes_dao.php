@@ -11,7 +11,7 @@ namespace Painel;
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Usu_permissoes_dao extends \ABS_Dao {
+class Usu_permissoes_dao extends \MY_Dao {
 
     protected function load() {
         $this->_sTable = 'usu_permissoes';
